@@ -15,7 +15,27 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: "Klivvo — ИИ-советник по рекламе",
-  description: "Узнайте, какую рекламу запускать. Ключевые слова, тексты объявлений, прогноз бюджета за 2 минуты.",
+  description:
+    "Узнайте, какую рекламу запускать. Ключевые слова, тексты объявлений, прогноз бюджета за 2 минуты.",
+  metadataBase: new URL("https://klivvo.ru"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "Klivvo — ИИ-советник по рекламе для Яндекс.Директа",
+    description:
+      "Вставьте ссылку на сайт — получите ключевые слова, объявления и бюджет за 2 минуты. В 5-10 раз дешевле агентства.",
+    url: "https://klivvo.ru",
+    siteName: "Klivvo",
+    locale: "ru_RU",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Klivvo — ИИ-советник по рекламе",
+    description:
+      "Вставьте ссылку на сайт — получите ключевые слова, объявления и бюджет за 2 минуты.",
+  },
 };
 
 export default function RootLayout({

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import {
   Globe,
@@ -9,8 +10,11 @@ import {
   Timer,
   TrendingUp,
   Wand2,
+  ChevronDown,
+  Menu,
+  X,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 
 /* ─── Data ─── */
@@ -59,13 +63,13 @@ const steps = [
 const footerLinks = {
   product: [
     { label: "Возможности", href: "#features" },
-    { label: "Как это работает", href: "#how" },
+    { label: "Как это работает", href: "/how" },
     { label: "Цены", href: "#pricing" },
   ],
   resources: [
     { label: "Блог", href: "#" },
-    { label: "Документация", href: "#" },
-    { label: "FAQ", href: "#" },
+    { label: "Войти", href: "/auth" },
+    { label: "Личный кабинет", href: "/dashboard" },
   ],
   legal: [
     { label: "Условия использования", href: "#" },
@@ -73,6 +77,29 @@ const footerLinks = {
     { label: "Контакты", href: "#" },
   ],
 };
+
+const faqItems = [
+  {
+    q: "Нужен ли мне опыт в рекламе?",
+    a: "Нет. Klivvo создан для предпринимателей без опыта. Вы получаете готовые тексты объявлений и чёткий план, который можно просто скопировать в Яндекс.Директ.",
+  },
+  {
+    q: "Сколько стоит попробовать?",
+    a: "Регистрация бесплатна, и вы сразу получаете первый отчёт. Платные планы начинаются от 1 900\u20BD/мес.",
+  },
+  {
+    q: "Чем вы лучше агентства?",
+    a: "В 5-10 раз дешевле при том же результате. Агентство берёт от 20 000\u20BD/мес. Klivvo даёт тот же план за 1 900\u20BD.",
+  },
+  {
+    q: "Как быстро я получу результат?",
+    a: "Анализ занимает 1-2 минуты. Сразу после этого вы получаете полный отчёт с ключевыми словами, объявлениями и бюджетом.",
+  },
+  {
+    q: "Могу ли я отменить подписку?",
+    a: "Да, в любой момент. Нет долгосрочных контрактов. Отмена в один клик в личном кабинете.",
+  },
+];
 
 /* ─── AnimatedPlaceholder ─── */
 
@@ -188,9 +215,71 @@ function iconColor(color: string) {
 
 /* ─── Page ─── */
 
+function FaqSection() {
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  return (
+    <section id="faq" className="relative z-10 py-20 px-6 bg-[#f2f3fd]">
+      <div className="max-w-3xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="font-headline font-extrabold text-3xl md:text-4xl text-center mb-12"
+        >
+          Часто задаваемые вопросы
+        </motion.h2>
+
+        <div className="space-y-3">
+          {faqItems.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.05 }}
+              className="bg-white rounded-[1.5rem] shadow-[0px_24px_48px_rgba(25,28,35,0.06)] overflow-hidden"
+            >
+              <button
+                onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                className="w-full px-6 py-5 flex items-center justify-between text-left"
+              >
+                <span className="font-headline font-bold text-[#191c23] pr-4">
+                  {item.q}
+                </span>
+                <motion.div
+                  animate={{ rotate: openFaq === i ? 180 : 0 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown className="w-5 h-5 text-[#414754] shrink-0" />
+                </motion.div>
+              </button>
+              <AnimatePresence>
+                {openFaq === i && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <p className="px-6 pb-5 text-[#414754] leading-relaxed">
+                      {item.a}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function LandingPage() {
   const [url, setUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
   async function handleSubmit() {
@@ -216,9 +305,15 @@ export default function LandingPage() {
   return (
     <div className="relative min-h-screen bg-[#f9f9ff] text-[#191c23]">
       {/* ── Nav (fixed, glass) ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 h-20 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30">
-        <div className="max-w-7xl mx-auto h-full flex items-center justify-between px-6">
-          <span className="font-headline font-bold text-xl tracking-tight text-[#191c23]">
+      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30">
+        <div className="max-w-7xl mx-auto h-20 flex items-center justify-between px-6">
+          <span className="font-headline font-bold text-xl tracking-tight text-[#191c23] flex items-center gap-2">
+            <span
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-headline font-bold text-sm"
+              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
+            >
+              K
+            </span>
             Klivvo
           </span>
 
@@ -244,16 +339,66 @@ export default function LandingPage() {
             ))}
           </div>
 
-          <button
-            onClick={scrollToTop}
-            className="h-10 px-6 rounded-lg text-sm font-semibold text-white"
-            style={{
-              background: "linear-gradient(135deg, #005bbf, #1a73e8)",
-            }}
-          >
-            Начать
-          </button>
+          <div className="flex items-center gap-3">
+            <Link
+              href="/auth"
+              className="hidden sm:inline-flex text-sm font-medium text-[#414754] hover:text-[#005bbf] transition-colors"
+            >
+              Войти
+            </Link>
+            <Link
+              href="/auth"
+              className="hidden sm:inline-flex h-10 px-6 rounded-lg text-sm font-semibold text-white items-center"
+              style={{
+                background: "linear-gradient(135deg, #005bbf, #1a73e8)",
+              }}
+            >
+              Начать
+            </Link>
+            <button
+              className="md:hidden p-2"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-white border-b border-[#c1c6d6]/30 px-6 py-4 space-y-3">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setMobileMenuOpen(false);
+                  document
+                    .querySelector(link.href)
+                    ?.scrollIntoView({ behavior: "smooth" });
+                }}
+                className="block text-sm font-medium text-[#414754]"
+              >
+                {link.label}
+              </a>
+            ))}
+            <Link
+              href="/auth"
+              className="block text-sm font-medium text-[#005bbf]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Войти
+            </Link>
+            <Link
+              href="/auth"
+              className="block text-sm font-semibold text-[#005bbf]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              Начать
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* ── Hero (two columns) ── */}
@@ -670,6 +815,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── FAQ ── */}
+      <FaqSection />
+
       {/* ── CTA ── */}
       <section className="relative z-10 py-20 px-6">
         <div className="max-w-5xl mx-auto relative rounded-[3rem] overflow-hidden px-8 py-16 md:py-20 text-center"
@@ -693,13 +841,13 @@ export default function LandingPage() {
             <p className="text-white/80 text-lg mb-8 max-w-xl mx-auto">
               Вставьте ссылку на свой сайт — план будет готов через пару минут
             </p>
-            <button
-              onClick={scrollToTop}
+            <Link
+              href="/auth"
               className="inline-flex items-center gap-2 h-14 px-10 rounded-xl bg-white text-[#005bbf] font-headline font-bold text-base shadow-lg hover:shadow-xl transition-shadow"
             >
               Попробовать
               <ArrowRight className="w-5 h-5" />
-            </button>
+            </Link>
           </motion.div>
         </div>
       </section>
@@ -726,18 +874,27 @@ export default function LandingPage() {
               <ul className="space-y-2.5">
                 {footerLinks.product.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        document
-                          .querySelector(link.href)
-                          ?.scrollIntoView({ behavior: "smooth" });
-                      }}
-                      className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                    >
-                      {link.label}
-                    </a>
+                    {link.href.startsWith("#") ? (
+                      <a
+                        href={link.href}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          document
+                            .querySelector(link.href)
+                            ?.scrollIntoView({ behavior: "smooth" });
+                        }}
+                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -751,12 +908,21 @@ export default function LandingPage() {
               <ul className="space-y-2.5">
                 {footerLinks.resources.map((link) => (
                   <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                    >
-                      {link.label}
-                    </a>
+                    {link.href.startsWith("#") ? (
+                      <a
+                        href={link.href}
+                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
+                      >
+                        {link.label}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
