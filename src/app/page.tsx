@@ -528,19 +528,19 @@ export default function LandingPage() {
 
       {/* ── Pricing ── */}
       <section id="pricing" className="relative z-10 py-20 px-6 bg-[#f9f9ff]">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center mb-12"
           >
-            <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-[#191c23] mb-3">Простые и понятные цены</h2>
-            <p className="text-[#414754] max-w-xl mx-auto">Выберите то, что подходит вашему бизнесу. Без скрытых платежей.</p>
+            <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-[#191c23] mb-3">Выберите свой план</h2>
+            <p className="text-[#414754] max-w-xl mx-auto">В 5-10 раз дешевле агентства. Тот же результат.</p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Отчёт */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {/* Бесплатно */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -548,15 +548,14 @@ export default function LandingPage() {
               transition={{ delay: 0 }}
               className="bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border border-[#c1c6d6]/20 hover:-translate-y-2 transition-transform duration-300"
             >
-              <div className="text-3xl mb-3">📊</div>
-              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Отчёт</h3>
-              <p className="text-sm text-[#414754] mb-4">Для первого запуска рекламы</p>
+              <div className="text-3xl mb-3">🎁</div>
+              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Бесплатно</h3>
+              <p className="text-sm text-[#414754] mb-4">За регистрацию по email</p>
               <div className="mb-6">
-                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">490 ₽</span>
-                <span className="text-[#414754] text-sm ml-1">разово</span>
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">0 ₽</span>
               </div>
               <ul className="space-y-3 text-sm text-[#414754] mb-8">
-                {["Полный набор ключевиков", "5 готовых объявлений", "Минус-слова", "Прогноз бюджета (3 уровня)", "Анализ конкурентов"].map((f) => (
+                {["Урезанный отчёт", "5 ключевиков", "1 объявление", "Общая стратегия"].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <span className="text-[#006d36] mt-0.5">✓</span>
                     <span>{f}</span>
@@ -567,30 +566,61 @@ export default function LandingPage() {
                 onClick={scrollToTop}
                 className="w-full h-12 rounded-xl border-2 border-[#005bbf] text-[#005bbf] font-headline font-bold text-sm hover:bg-[#005bbf]/5 transition-colors"
               >
-                Получить отчёт
+                Попробовать
               </button>
             </motion.div>
 
-            {/* Подписка */}
+            {/* Старт */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
+              className="bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border border-[#c1c6d6]/20 hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="text-3xl mb-3">🚀</div>
+              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Старт</h3>
+              <p className="text-sm text-[#414754] mb-4">Для бюджета до 30к</p>
+              <div className="mb-6">
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">1 900 ₽</span>
+                <span className="text-[#414754] text-sm ml-1">/ мес</span>
+              </div>
+              <ul className="space-y-3 text-sm text-[#414754] mb-8">
+                {["Полный отчёт с CPC и объёмами", "5+ готовых объявлений", "Минус-слова", "Прогноз бюджета", "Обновление раз в месяц"].map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <span className="text-[#006d36] mt-0.5">✓</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={scrollToTop}
+                className="w-full h-12 rounded-xl border-2 border-[#005bbf] text-[#005bbf] font-headline font-bold text-sm hover:bg-[#005bbf]/5 transition-colors"
+              >
+                Выбрать
+              </button>
+            </motion.div>
+
+            {/* Бизнес */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
               className="relative bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border-2 border-[#005bbf] hover:-translate-y-2 transition-transform duration-300"
             >
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#6bfe9c] text-[#005228] text-xs font-bold px-4 py-1 rounded-full">
                 Популярный
               </div>
-              <div className="text-3xl mb-3">🚀</div>
-              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Подписка</h3>
-              <p className="text-sm text-[#414754] mb-4">Для активного ведения рекламы</p>
+              <div className="text-3xl mb-3">⭐</div>
+              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Бизнес</h3>
+              <p className="text-sm text-[#414754] mb-4">Для бюджета до 100к</p>
               <div className="mb-6">
-                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">1 990 ₽</span>
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">3 900 ₽</span>
                 <span className="text-[#414754] text-sm ml-1">/ мес</span>
               </div>
               <ul className="space-y-3 text-sm text-[#414754] mb-8">
-                {["Безлимит отчётов", "Обновление рекомендаций каждый месяц", "Алерты: ставки выросли, конкуренты изменились", "История и сравнение месяц к месяцу", "Приоритетная поддержка"].map((f) => (
+                {["Всё из Старта +", "Еженедельный мониторинг", "Алерты на email", "Сезонные обновления объявлений", "Дашборд в личном кабинете"].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <span className="text-[#006d36] mt-0.5">✓</span>
                     <span>{f}</span>
@@ -602,7 +632,7 @@ export default function LandingPage() {
                 className="w-full h-12 rounded-xl text-white font-headline font-bold text-sm transition-opacity hover:opacity-90"
                 style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
               >
-                Начать
+                Выбрать
               </button>
             </motion.div>
 
@@ -611,18 +641,18 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
+              transition={{ delay: 0.3 }}
               className="bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border border-[#c1c6d6]/20 hover:-translate-y-2 transition-transform duration-300"
             >
               <div className="text-3xl mb-3">🏢</div>
               <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Агентство</h3>
-              <p className="text-sm text-[#414754] mb-4">Для маркетологов и агентств</p>
+              <p className="text-sm text-[#414754] mb-4">До 10 клиентов</p>
               <div className="mb-6">
-                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">9 990 ₽</span>
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">9 900 ₽</span>
                 <span className="text-[#414754] text-sm ml-1">/ мес</span>
               </div>
               <ul className="space-y-3 text-sm text-[#414754] mb-8">
-                {["До 50 отчётов / мес", "White-label PDF (ваш лого)", "API доступ", "Мульти-аккаунт (команда)", "Экспорт в Excel", "Приоритетный анализ"].map((f) => (
+                {["Всё из Бизнеса +", "White-label PDF", "API доступ", "Мульти-аккаунт"].map((f) => (
                   <li key={f} className="flex items-start gap-2">
                     <span className="text-[#006d36] mt-0.5">✓</span>
                     <span>{f}</span>

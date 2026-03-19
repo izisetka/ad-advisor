@@ -77,23 +77,29 @@ export default function AnalyzePage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#F5F7FA] text-slate-900">
+    <div className="relative min-h-screen overflow-hidden bg-[#f9f9ff] text-[#191c23]">
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-blue-100/30 blur-[120px]" />
-        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-blue-100/30 blur-[120px]" />
+        <div className="absolute -top-1/4 -right-1/4 w-[500px] h-[500px] rounded-full bg-[#005bbf]/10 blur-[120px]" />
+        <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-[#005bbf]/10 blur-[120px]" />
       </div>
 
-      <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
-        <Link href="/" className="flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors">
-          <ArrowLeft className="w-4 h-4" />
-          <span className="text-sm font-medium">На главную</span>
-        </Link>
-        <Link href="/" className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-blue-500/25">
-            K
-          </div>
-          <span className="font-bold text-lg tracking-tight text-slate-900">Klivvo</span>
-        </Link>
+      {/* Nav — glass panel */}
+      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30 shadow-[0px_4px_12px_rgba(25,28,35,0.04)]">
+        <div className="flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
+          <Link href="/" className="flex items-center gap-2 text-[#414754] hover:text-[#005bbf] transition-colors">
+            <ArrowLeft className="w-4 h-4" />
+            <span className="text-sm font-medium">На главную</span>
+          </Link>
+          <Link href="/" className="flex items-center gap-2.5">
+            <div
+              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-[#005bbf]/25"
+              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
+            >
+              K
+            </div>
+            <span className="font-headline font-bold text-lg tracking-tight text-[#191c23]">Klivvo</span>
+          </Link>
+        </div>
       </nav>
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 pt-16">
@@ -103,11 +109,11 @@ export default function AnalyzePage() {
           transition={{ duration: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            <span className="text-blue-600">Рекламный план</span>{" "}
-            <span className="text-slate-900">для вашего бизнеса</span>
+          <h1 className="font-headline text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+            <span className="text-[#005bbf]">Рекламный план</span>{" "}
+            <span className="text-[#191c23]">для вашего бизнеса</span>
           </h1>
-          <p className="text-slate-500 text-lg">
+          <p className="text-[#414754] text-lg">
             Вставьте адрес вашего сайта — мы подготовим план рекламы
           </p>
         </motion.div>
@@ -121,23 +127,23 @@ export default function AnalyzePage() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.4 }}
             >
-              <div className="rounded-2xl p-2.5 bg-white border border-slate-200 shadow-xl shadow-slate-200/50">
+              <div className="rounded-2xl p-2.5 bg-white border border-[#c1c6d6] shadow-xl shadow-[#005bbf]/10">
                 <div className="flex flex-col sm:flex-row gap-2.5">
                   <div className="relative flex-1">
-                    <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+                    <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[#414754]" />
                     <Input
                       type="text"
                       placeholder="вашсайт.рф"
                       value={url}
                       onChange={(e) => setUrl(e.target.value)}
                       onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
-                      className="pl-12 h-14 bg-slate-50 border-slate-200 text-lg text-slate-900 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500/30 placeholder:text-slate-400"
+                      className="pl-12 h-14 bg-[#f2f3fd] border-[#c1c6d6] text-lg text-[#191c23] rounded-xl focus-visible:ring-2 focus-visible:ring-[#005bbf]/30 placeholder:text-[#414754]/50"
                     />
                   </div>
                   <ShimmerButton
                     onClick={handleAnalyze}
                     shimmerColor="rgba(255,255,255,0.2)"
-                    background="linear-gradient(135deg, #1A73E8, #1565D8)"
+                    background="linear-gradient(135deg, #005bbf, #1a73e8)"
                     borderRadius="12px"
                     className="h-14 px-8 text-sm font-semibold"
                   >
@@ -160,13 +166,13 @@ export default function AnalyzePage() {
               )}
 
               <div className="mt-8 text-center">
-                <p className="text-sm text-slate-400 mb-3">Попробуйте:</p>
+                <p className="text-sm text-[#414754] mb-3">Попробуйте:</p>
                 <div className="flex flex-wrap justify-center gap-2">
                   {["пекарня-хлебница.рф", "salon-laki.ru", "edavezde.ru", "remont-ufa.ru"].map((example) => (
                     <button
                       key={example}
                       onClick={() => setUrl(example)}
-                      className="px-4 py-2 rounded-full text-sm font-medium text-slate-500 hover:text-blue-600 hover:bg-blue-50 border border-transparent hover:border-blue-200 transition-all duration-200"
+                      className="px-4 py-2 rounded-full text-sm font-medium text-[#414754] hover:text-[#005bbf] hover:bg-[#005bbf]/5 border border-transparent hover:border-[#005bbf]/20 transition-all duration-200"
                     >
                       {example}
                     </button>
@@ -186,23 +192,23 @@ export default function AnalyzePage() {
               {/* Radar animation */}
               <div className="flex justify-center mb-6">
                 <div className="relative w-32 h-32">
-                  <div className="absolute inset-0 rounded-full border-2 border-blue-200" />
-                  <div className="absolute inset-3 rounded-full border border-blue-100" />
-                  <div className="absolute inset-6 rounded-full border border-blue-50" />
+                  <div className="absolute inset-0 rounded-full border-2 border-[#005bbf]/30" />
+                  <div className="absolute inset-3 rounded-full border border-[#005bbf]/20" />
+                  <div className="absolute inset-6 rounded-full border border-[#005bbf]/10" />
                   <div className="absolute inset-0 radar-sweep">
-                    <div className="absolute top-1/2 left-1/2 w-1/2 h-0.5 origin-left bg-gradient-to-r from-blue-500 to-transparent rounded-full" />
+                    <div className="absolute top-1/2 left-1/2 w-1/2 h-0.5 origin-left bg-gradient-to-r from-[#005bbf] to-transparent rounded-full" />
                   </div>
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-blue-500 animate-pulse shadow-lg shadow-blue-500/30" />
-                  <div className="absolute inset-0 rounded-full border-2 border-blue-200/50 animate-ping" style={{ animationDuration: "2s" }} />
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#005bbf] animate-pulse shadow-lg shadow-[#005bbf]/30" />
+                  <div className="absolute inset-0 rounded-full border-2 border-[#005bbf]/20 animate-ping" style={{ animationDuration: "2s" }} />
                 </div>
               </div>
 
-              <p className="text-center text-sm text-slate-500 mb-2">
-                Анализируем <span className="font-semibold text-slate-900">{url}</span>
+              <p className="text-center text-sm text-[#414754] mb-2">
+                Анализируем <span className="font-semibold text-[#191c23]">{url}</span>
               </p>
 
               {/* Steps */}
-              <div className="rounded-2xl p-6 space-y-1 bg-white border border-slate-200 shadow-lg">
+              <div className="rounded-[1.5rem] p-6 space-y-1 bg-white border border-[#c1c6d6]/30 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
                 {steps.map((step, i) => {
                   const isActive = i === currentStep;
                   const isDone = i < currentStep;
@@ -216,17 +222,18 @@ export default function AnalyzePage() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.1, duration: 0.4 }}
                       className={`flex items-center gap-4 p-4 rounded-xl transition-all duration-300 ${
-                        isActive ? "bg-blue-50" : ""
+                        isActive ? "bg-[#005bbf]/5" : ""
                       }`}
                     >
                       <div
                         className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-all duration-300 ${
                           isDone
-                            ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/25"
+                            ? "bg-[#006d36] text-white shadow-lg shadow-[#006d36]/25"
                             : isActive
-                            ? "bg-gradient-to-br from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/25 animate-pulse"
-                            : "bg-slate-100 text-slate-400"
+                            ? "text-white shadow-lg shadow-[#005bbf]/25 animate-pulse"
+                            : "bg-[#f2f3fd] text-[#414754]"
                         }`}
+                        style={isActive ? { background: "linear-gradient(135deg, #005bbf, #1a73e8)" } : undefined}
                       >
                         {isDone ? (
                           <CheckCircle2 className="w-5 h-5" />
@@ -238,24 +245,24 @@ export default function AnalyzePage() {
                       <div className="flex-1 min-w-0">
                         <p
                           className={`font-semibold text-sm transition-colors ${
-                            isPending ? "text-slate-400" : "text-slate-900"
+                            isPending ? "text-[#414754]/50" : "text-[#191c23]"
                           }`}
                         >
                           {step.label}
                         </p>
-                        <p className="text-xs text-slate-400">{step.sublabel}</p>
+                        <p className="text-xs text-[#414754]">{step.sublabel}</p>
                       </div>
 
                       {isActive && (
                         <div className="flex gap-1">
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "0ms" }} />
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "150ms" }} />
-                          <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: "300ms" }} />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#005bbf] animate-bounce" style={{ animationDelay: "0ms" }} />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#005bbf] animate-bounce" style={{ animationDelay: "150ms" }} />
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#005bbf] animate-bounce" style={{ animationDelay: "300ms" }} />
                         </div>
                       )}
 
                       {isDone && (
-                        <span className="text-xs font-medium text-emerald-500">Готово</span>
+                        <span className="text-xs font-medium text-[#006d36]">Готово</span>
                       )}
                     </motion.div>
                   );
@@ -263,10 +270,11 @@ export default function AnalyzePage() {
               </div>
 
               {/* Progress bar */}
-              <div className="rounded-full p-1 bg-white border border-slate-200">
-                <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+              <div className="rounded-full p-1 bg-white border border-[#c1c6d6]/30">
+                <div className="h-2 rounded-full bg-[#f2f3fd] overflow-hidden">
                   <motion.div
-                    className="h-full rounded-full bg-gradient-to-r from-blue-500 to-blue-600"
+                    className="h-full rounded-full"
+                    style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
                     initial={{ width: "0%" }}
                     animate={{ width: `${steps[currentStep].progress}%` }}
                     transition={{ duration: 0.8, ease: "easeInOut" }}
