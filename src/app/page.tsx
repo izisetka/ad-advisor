@@ -88,14 +88,14 @@ function UrlInput({
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && onSubmit()}
-              className="pl-11 h-12 bg-slate-50 border-slate-200 text-base text-slate-900 rounded-xl focus-visible:ring-2 focus-visible:ring-indigo-500/30 relative z-[2] placeholder:text-slate-400"
+              className="pl-11 h-12 bg-slate-50 border-slate-200 text-base text-slate-900 rounded-xl focus-visible:ring-2 focus-visible:ring-blue-500/30 relative z-[2] placeholder:text-slate-400"
             />
           </div>
           <ShimmerButton
             onClick={onSubmit}
             disabled={isSubmitting}
             shimmerColor="rgba(255,255,255,0.2)"
-            background="linear-gradient(135deg, #6366f1, #8b5cf6)"
+            background="linear-gradient(135deg, #1A73E8, #1565D8)"
             borderRadius="12px"
             className="h-12 px-8 text-sm font-semibold"
           >
@@ -216,18 +216,18 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="relative min-h-screen bg-white text-slate-900">
+    <div className="relative min-h-screen bg-[#F5F7FA] text-slate-900">
       {/* Background */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute -top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-indigo-100/50 blur-[120px]" />
-        <div className="absolute top-1/4 -right-1/4 h-[600px] w-[600px] rounded-full bg-violet-100/40 blur-[120px]" />
+        <div className="absolute -top-1/2 left-1/2 h-[800px] w-[800px] -translate-x-1/2 rounded-full bg-blue-100/50 blur-[120px]" />
+        <div className="absolute top-1/4 -right-1/4 h-[600px] w-[600px] rounded-full bg-blue-100/30 blur-[120px]" />
         <DotPattern className="opacity-30 [mask-image:radial-gradient(ellipse_at_center,white_30%,transparent_70%)]" />
       </div>
 
       {/* Nav */}
       <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-500/25">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-blue-500/25">
             РП
           </div>
           <span className="font-bold text-lg tracking-tight text-slate-900">
@@ -245,7 +245,7 @@ export default function LandingPage() {
                   .querySelector(link.href)
                   ?.scrollIntoView({ behavior: "smooth" });
               }}
-              className="text-sm text-slate-500 hover:text-indigo-600 transition-colors"
+              className="text-sm text-slate-500 hover:text-blue-600 transition-colors"
             >
               {link.label}
             </a>
@@ -254,7 +254,7 @@ export default function LandingPage() {
         <ShimmerButton
           onClick={scrollToTop}
           shimmerColor="rgba(255,255,255,0.2)"
-          background="linear-gradient(135deg, #6366f1, #8b5cf6)"
+          background="linear-gradient(135deg, #1A73E8, #1565D8)"
           borderRadius="8px"
           className="h-9 px-5 text-xs font-semibold"
         >
@@ -268,9 +268,9 @@ export default function LandingPage() {
           {/* Left */}
           <div>
             <BlurFadeIn delay={0}>
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5">
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-blue-50 px-4 py-1.5">
                 <span className="text-sm">&#9889;</span>
-                <span className="text-sm font-medium text-indigo-700">
+                <span className="text-sm font-medium text-blue-700">
                   Результат за 2 минуты
                 </span>
               </div>
@@ -309,7 +309,7 @@ export default function LandingPage() {
                   "Бюджет",
                 ].map((item) => (
                   <span key={item}>
-                    <span className="text-indigo-500">&#10003;</span> {item}
+                    <span className="text-blue-500">&#10003;</span> {item}
                   </span>
                 ))}
               </div>
@@ -330,8 +330,8 @@ export default function LandingPage() {
               <BorderBeam
                 size={120}
                 duration={8}
-                colorFrom="#6366f1"
-                colorTo="#8b5cf6"
+                colorFrom="#1A73E8"
+                colorTo="#1565D8"
               />
               {/* Title bar */}
               <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
@@ -389,10 +389,10 @@ export default function LandingPage() {
                   ].map((m) => (
                     <div
                       key={m.label}
-                      className="rounded-lg bg-indigo-50 p-2.5 text-center"
+                      className="rounded-lg bg-blue-50 p-2.5 text-center"
                     >
                       <p className="text-[10px] text-slate-400">{m.label}</p>
-                      <p className="text-sm font-bold text-indigo-600">
+                      <p className="text-sm font-bold text-blue-600">
                         {m.value}
                       </p>
                     </div>
@@ -406,7 +406,7 @@ export default function LandingPage() {
 
       {/* Gradient divider */}
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-indigo-300/50 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-blue-300/50 to-transparent" />
       </div>
 
       {/* Features — Что вы получите */}
@@ -451,7 +451,7 @@ export default function LandingPage() {
 
       {/* Gradient divider */}
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-indigo-300/50 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-blue-300/50 to-transparent" />
       </div>
 
       {/* How it works — two columns */}
@@ -460,8 +460,8 @@ export default function LandingPage() {
           <BlurFadeIn delay={0.1}>
             <AnimatedGradientText
               speed={1.5}
-              colorFrom="#6366f1"
-              colorTo="#8b5cf6"
+              colorFrom="#1A73E8"
+              colorTo="#1565D8"
               className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
             >
               Как это работает
@@ -486,7 +486,7 @@ export default function LandingPage() {
                 transition={{ duration: 0.5, delay: i * 0.15 }}
                 className="flex gap-5"
               >
-                <div className="text-5xl font-bold text-indigo-100 leading-none select-none shrink-0">
+                <div className="text-5xl font-bold text-blue-100 leading-none select-none shrink-0">
                   {step.num}
                 </div>
                 <div>
@@ -514,8 +514,8 @@ export default function LandingPage() {
               <BorderBeam
                 size={120}
                 duration={8}
-                colorFrom="#6366f1"
-                colorTo="#8b5cf6"
+                colorFrom="#1A73E8"
+                colorTo="#1565D8"
               />
               {/* Title bar */}
               <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
@@ -599,8 +599,8 @@ export default function LandingPage() {
                   <h4 className="text-sm font-semibold mb-3 text-slate-700">
                     Готовое объявление
                   </h4>
-                  <div className="rounded-lg border border-indigo-200/50 bg-indigo-50/50 p-4">
-                    <p className="text-indigo-700 font-semibold text-sm">
+                  <div className="rounded-lg border border-blue-200/50 bg-blue-50/50 p-4">
+                    <p className="text-blue-700 font-semibold text-sm">
                       Торты на заказ в Уфе — от 1 200&#8381;
                     </p>
                     <p className="text-slate-600 text-sm mt-1">
@@ -635,11 +635,11 @@ export default function LandingPage() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.4, delay: i * 0.1 }}
-                      className={`rounded-lg p-3 text-center ${i === 1 ? "bg-indigo-50 border-2 border-indigo-300" : "bg-slate-50 border border-slate-200"}`}
+                      className={`rounded-lg p-3 text-center ${i === 1 ? "bg-blue-50 border-2 border-blue-300" : "bg-slate-50 border border-slate-200"}`}
                     >
                       <p className="text-xs text-slate-500 mb-1">{b.label}</p>
                       <p
-                        className={`text-lg font-bold ${i === 1 ? "text-indigo-600" : "text-slate-700"}`}
+                        className={`text-lg font-bold ${i === 1 ? "text-blue-600" : "text-slate-700"}`}
                       >
                         {b.amount}
                       </p>
@@ -675,9 +675,9 @@ export default function LandingPage() {
           ].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 shadow-sm hover:border-indigo-200 hover:text-indigo-600 transition-colors"
+              className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 shadow-sm hover:border-blue-200 hover:text-blue-600 transition-colors"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
               {item}
             </div>
           ))}
@@ -699,9 +699,9 @@ export default function LandingPage() {
           ].map((item) => (
             <div
               key={item}
-              className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 shadow-sm hover:border-violet-200 hover:text-violet-600 transition-colors"
+              className="flex items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-medium text-slate-600 shadow-sm hover:border-blue-200 hover:text-blue-600 transition-colors"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-violet-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
               {item}
             </div>
           ))}
@@ -710,7 +710,7 @@ export default function LandingPage() {
 
       {/* Gradient divider */}
       <div className="relative z-10 max-w-6xl mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-violet-300/50 to-transparent" />
+        <div className="h-px bg-gradient-to-r from-transparent via-blue-300/50 to-transparent" />
       </div>
 
       {/* For whom */}
@@ -746,14 +746,14 @@ export default function LandingPage() {
                   className="rounded-2xl p-6 border border-slate-100 shadow-sm cursor-default h-full flex flex-col"
                   gradientColor="#E2E8F0"
                   gradientOpacity={0.5}
-                  gradientFrom="#6366f1"
-                  gradientTo="#8b5cf6"
+                  gradientFrom="#1A73E8"
+                  gradientTo="#1565D8"
                 >
                   <div className="text-3xl mb-3">{uc.emoji}</div>
                   <h3 className="text-lg font-bold mb-2 text-slate-900">
                     {uc.title}
                   </h3>
-                  <p className="text-sm text-indigo-600 font-medium mb-3 italic">
+                  <p className="text-sm text-blue-600 font-medium mb-3 italic">
                     &laquo;{uc.quote}&raquo;
                   </p>
                   <p className="text-sm text-slate-500 leading-relaxed flex-1">
@@ -767,13 +767,13 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="relative z-10 py-16 bg-gradient-to-r from-indigo-600 to-violet-600">
+      <section className="relative z-10 py-16 bg-blue-600">
         <div className="max-w-2xl mx-auto text-center px-6">
           <BlurFadeIn delay={0.1}>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Готовы узнать, какую рекламу запускать?
             </h2>
-            <p className="text-indigo-100 text-lg mb-8">
+            <p className="text-blue-100 text-lg mb-8">
               Вставьте ссылку на свой сайт — план будет готов через пару минут
             </p>
             <ShineBorder
@@ -784,7 +784,7 @@ export default function LandingPage() {
             >
               <button
                 onClick={scrollToTop}
-                className="inline-flex items-center gap-2 h-12 px-8 rounded-xl bg-white text-indigo-600 font-semibold text-sm shadow-lg hover:shadow-xl transition-shadow"
+                className="inline-flex items-center gap-2 h-12 px-8 rounded-xl bg-white text-blue-600 font-semibold text-sm shadow-lg hover:shadow-xl transition-shadow"
               >
                 Попробовать
                 <ArrowRight className="w-4 h-4" />
@@ -801,7 +801,7 @@ export default function LandingPage() {
             {/* Column 1 — Logo */}
             <div>
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-500/25">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-blue-500/25">
                   РП
                 </div>
                 <span className="font-bold text-lg tracking-tight text-slate-900">
@@ -829,7 +829,7 @@ export default function LandingPage() {
                           .querySelector(link.href)
                           ?.scrollIntoView({ behavior: "smooth" });
                       }}
-                      className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
+                      className="text-sm text-slate-400 hover:text-blue-600 transition-colors"
                     >
                       {link.label}
                     </a>
@@ -847,7 +847,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="https://t.me/reklamaplan"
-                    className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
+                    className="text-sm text-slate-400 hover:text-blue-600 transition-colors"
                   >
                     Telegram
                   </a>
@@ -855,7 +855,7 @@ export default function LandingPage() {
                 <li>
                   <a
                     href="mailto:hello@reklamaplan.ru"
-                    className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
+                    className="text-sm text-slate-400 hover:text-blue-600 transition-colors"
                   >
                     Email
                   </a>

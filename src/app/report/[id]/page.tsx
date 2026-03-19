@@ -52,7 +52,7 @@ function CopyButton({ text }: { text: string }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       }}
-      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-indigo-50 hover:text-indigo-600 transition-colors"
+      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"
     >
       {copied ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
       {copied ? "Скопировано!" : "Скопировать"}
@@ -102,7 +102,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center rounded-2xl p-12 border border-slate-200 bg-white shadow-sm">
           <h1 className="text-2xl font-bold mb-4 text-slate-900">Отчёт не найден</h1>
-          <Link href="/analyze" className="text-indigo-600 font-semibold hover:text-indigo-500 transition-colors">
+          <Link href="/analyze" className="text-blue-600 font-semibold hover:text-blue-500 transition-colors">
             Начать новый анализ →
           </Link>
         </div>
@@ -117,12 +117,12 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
       {/* Nav */}
       <nav className="border-b border-slate-200 bg-white/80 backdrop-blur-sm sticky top-0 z-20">
         <div className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
-          <Link href="/analyze" className="flex items-center gap-2 text-slate-500 hover:text-indigo-600 transition-colors">
+          <Link href="/analyze" className="flex items-center gap-2 text-slate-500 hover:text-blue-600 transition-colors">
             <ArrowLeft className="w-4 h-4" />
             <span className="text-sm font-medium">Новый анализ</span>
           </Link>
           <Link href="/" className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-500/25">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-blue-500/25">
               РП
             </div>
             <span className="font-bold text-lg tracking-tight text-slate-900">РекламаПлан</span>
@@ -144,7 +144,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                 {business.name}
               </h1>
               <div className="flex flex-wrap items-center gap-2">
-                <Badge className="bg-indigo-50 text-indigo-700 border border-indigo-200">{business.niche}</Badge>
+                <Badge className="bg-blue-50 text-blue-700 border border-blue-200">{business.niche}</Badge>
                 <span className="flex items-center gap-1 text-sm text-slate-500">
                   <MapPin className="w-3.5 h-3.5" /> {business.city}
                 </span>
@@ -169,7 +169,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-gradient-to-r from-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/25"
+                      ? "bg-blue-600 text-white shadow-lg shadow-blue-600/25"
                       : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"
                   }`}
                 >
@@ -197,9 +197,9 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="rounded-2xl p-8 bg-gradient-to-br from-indigo-50 to-violet-50 border border-indigo-100">
+              <motion.div variants={fadeUp} className="rounded-2xl p-8 bg-gradient-to-br from-blue-50 to-blue-50 border border-blue-100">
                 <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="w-5 h-5 text-indigo-600" />
+                  <TrendingUp className="w-5 h-5 text-blue-600" />
                   <h2 className="text-xl font-bold text-slate-900">Рекомендуемая стратегия</h2>
                 </div>
                 <p className="text-slate-700 leading-relaxed">{strategy}</p>
@@ -208,11 +208,11 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               {/* Quick stats */}
               <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="rounded-2xl p-5 bg-white border border-slate-200 shadow-sm text-center">
-                  <p className="text-3xl font-bold text-indigo-600">{keywords.hot.keywords.length + keywords.warm.keywords.length + keywords.broad.keywords.length}</p>
+                  <p className="text-3xl font-bold text-blue-600">{keywords.hot.keywords.length + keywords.warm.keywords.length + keywords.broad.keywords.length}</p>
                   <p className="text-xs text-slate-500 mt-1">ключевых слов</p>
                 </div>
                 <div className="rounded-2xl p-5 bg-white border border-slate-200 shadow-sm text-center">
-                  <p className="text-3xl font-bold text-violet-600">{ads.length}</p>
+                  <p className="text-3xl font-bold text-blue-600">{ads.length}</p>
                   <p className="text-xs text-slate-500 mt-1">готовых объявлений</p>
                 </div>
                 <div className="rounded-2xl p-5 bg-white border border-slate-200 shadow-sm text-center">
@@ -274,7 +274,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                   
                   {/* Директ preview */}
                   <div className="rounded-xl border border-slate-200 p-4 bg-slate-50">
-                    <p className="text-indigo-600 font-semibold text-base mb-1 hover:underline cursor-pointer">{ad.title}</p>
+                    <p className="text-blue-600 font-semibold text-base mb-1 hover:underline cursor-pointer">{ad.title}</p>
                     <p className="text-sm text-slate-600 mb-2">{ad.description}</p>
                     <p className="text-xs text-green-700">ad · {report.url}</p>
                   </div>
@@ -282,7 +282,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                   <div className="mt-4 flex flex-wrap gap-1.5">
                     <span className="text-xs text-slate-500">Для запросов:</span>
                     {ad.targetKeywords.map((kw, j) => (
-                      <Badge key={j} className="bg-indigo-50 text-indigo-600 border-indigo-200 text-xs">{kw}</Badge>
+                      <Badge key={j} className="bg-blue-50 text-blue-600 border-blue-200 text-xs">{kw}</Badge>
                     ))}
                   </div>
 
@@ -329,7 +329,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {[
                   { tier: budget.minimum, label: "Минимальный", desc: "Попробовать и посмотреть", color: "border-slate-200", icon: "💡" },
-                  { tier: budget.optimal, label: "Оптимальный", desc: "Лучшее соотношение цена/результат", color: "border-indigo-300 ring-2 ring-indigo-100", icon: "⭐" },
+                  { tier: budget.optimal, label: "Оптимальный", desc: "Лучшее соотношение цена/результат", color: "border-blue-300 ring-2 ring-blue-100", icon: "⭐" },
                   { tier: budget.aggressive, label: "Агрессивный", desc: "Максимум клиентов", color: "border-slate-200", icon: "🚀" },
                 ].map(({ tier, label, desc, color, icon }) => (
                   <motion.div
@@ -340,7 +340,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                     <div className="text-3xl mb-3">{icon}</div>
                     <h3 className="text-lg font-bold text-slate-900 mb-1">{label}</h3>
                     <p className="text-xs text-slate-500 mb-4">{desc}</p>
-                    <p className="text-3xl font-bold text-indigo-600 mb-4">{tier.amount}</p>
+                    <p className="text-3xl font-bold text-blue-600 mb-4">{tier.amount}</p>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between p-2 rounded-lg bg-slate-50">
                         <span className="text-slate-500">Кликов</span>
@@ -367,7 +367,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             <motion.div variants={fadeUp} initial="initial" animate="animate">
               <div className="rounded-2xl p-8 bg-white border border-slate-200 shadow-sm">
                 <div className="flex items-center gap-2 mb-4">
-                  <Swords className="w-5 h-5 text-indigo-600" />
+                  <Swords className="w-5 h-5 text-blue-600" />
                   <h2 className="text-xl font-bold text-slate-900">Конкурентная среда</h2>
                 </div>
                 <div className="prose prose-slate max-w-none text-slate-700 leading-relaxed whitespace-pre-line">
