@@ -1,7 +1,7 @@
 {
-  "name": "ad-advisor",
+  "name": "klivvo",
   "version": "0.1.0",
-  "description": "ИИ-советник по контекстной рекламе",
+  "description": "Klivvo — ИИ-советник по контекстной рекламе",
   "private": true,
   "scripts": {
     "dev": "next dev",

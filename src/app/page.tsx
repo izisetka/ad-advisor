@@ -219,7 +219,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 left-0 right-0 z-50 h-20 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30">
         <div className="max-w-7xl mx-auto h-full flex items-center justify-between px-6">
           <span className="font-headline font-bold text-xl tracking-tight text-[#191c23]">
-            РекламаПлан
+            Klivvo
           </span>
 
           <div className="hidden md:flex items-center gap-8">
@@ -333,7 +333,7 @@ export default function LandingPage() {
               className="relative rounded-[2rem] bg-white shadow-2xl p-6 md:p-8 border border-[#c1c6d6]/30"
             >
               <h3 className="font-headline font-bold text-lg text-[#191c23] mb-6">
-                РекламаПлан Dashboard
+                Klivvo Dashboard
               </h3>
 
               {/* Metrics grid 2x2 */}
@@ -463,7 +463,7 @@ export default function LandingPage() {
                 </div>
                 <div className="flex-1 mx-2">
                   <div className="bg-white rounded-md px-3 py-1 text-xs text-[#414754] border border-[#c1c6d6]/30 max-w-sm">
-                    рекламаплан.рф/report/пекарня
+                    klivvo.ru/report/пекарня
                   </div>
                 </div>
               </div>
@@ -681,7 +681,7 @@ export default function LandingPage() {
             {/* Logo column */}
             <div>
               <span className="font-headline font-bold text-xl text-[#191c23] block mb-3">
-                РекламаПлан
+                Klivvo
               </span>
               <p className="text-sm text-[#414754] leading-relaxed">
                 ИИ-советник по контекстной рекламе для малого бизнеса
@@ -754,7 +754,7 @@ export default function LandingPage() {
 
           <div className="border-t border-[#c1c6d6]/30 pt-6">
             <p className="text-center text-sm text-[#414754]">
-              &copy; 2026 РекламаПлан
+              &copy; 2026 Klivvo
             </p>
           </div>
         </div>

@@ -62,7 +62,7 @@ async function scrapeWithFetch(url: string): Promise<ScrapedSite> {
   const response = await fetch(url, {
     headers: {
       "User-Agent":
-        "Mozilla/5.0 (compatible; ReklamaPlanBot/1.0; +https://reklama-plan.ru)",
+        "Mozilla/5.0 (compatible; KlivvoBot/1.0; +https://klivvo.ru)",
     },
     signal: AbortSignal.timeout(10000),
   });

@@ -123,9 +123,9 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
           </Link>
           <Link href="/" className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-blue-500/25">
-              РП
+              K
             </div>
-            <span className="font-bold text-lg tracking-tight text-slate-900">РекламаПлан</span>
+            <span className="font-bold text-lg tracking-tight text-slate-900">Klivvo</span>
           </Link>
         </div>
       </nav>
