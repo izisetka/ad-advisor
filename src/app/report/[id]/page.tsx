@@ -3,6 +3,8 @@
 import { useEffect, useState, use } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -12,7 +14,6 @@ import {
   Ban,
   DollarSign,
   Swords,
-  ArrowLeft,
   Copy,
   Check,
   Flame,
@@ -116,24 +117,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
   return (
     <div className="min-h-screen bg-[#f9f9ff] text-[#191c23]">
-      {/* Nav — glass panel */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30 shadow-[0px_4px_12px_rgba(25,28,35,0.04)]">
-        <div className="flex items-center justify-between px-6 py-4 max-w-5xl mx-auto">
-          <Link href="/analyze" className="flex items-center gap-2 text-[#414754] hover:text-[#005bbf] transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">Новый анализ</span>
-          </Link>
-          <Link href="/" className="flex items-center gap-2.5">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-[#005bbf]/25"
-              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
-            >
-              K
-            </div>
-            <span className="font-headline font-bold text-lg tracking-tight text-[#191c23]">Klivvo</span>
-          </Link>
-        </div>
-      </nav>
+      <Navbar currentPage="/report" />
 
       <div className="max-w-5xl mx-auto px-6 py-8">
         {/* Header */}
@@ -410,6 +394,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
 
         </motion.div>
       </div>
+      <Footer />
     </div>
   );
 }

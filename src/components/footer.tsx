@@ -7,6 +7,7 @@ const footerLinks = {
     { label: "Цены", href: "/#pricing" },
   ],
   resources: [
+    { label: "Блог", href: "/blog" },
     { label: "Войти", href: "/auth" },
     { label: "Личный кабинет", href: "/dashboard" },
     { label: "Для агентств", href: "/agency" },

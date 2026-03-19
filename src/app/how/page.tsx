@@ -12,9 +12,9 @@ import {
   Rocket,
   ChevronDown,
   ArrowRight,
-  Menu,
-  X,
 } from "lucide-react";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 const steps = [
   {
@@ -92,95 +92,12 @@ const faqItems = [
   },
 ];
 
-const navLinks = [
-  { label: "Возможности", href: "/#features" },
-  { label: "Как это работает", href: "/how" },
-  { label: "Цены", href: "/#pricing" },
-];
-
 export default function HowPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
-  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#f9f9ff] text-[#191c23]">
-      {/* Nav */}
-      <nav className="sticky top-0 z-50 h-20 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30">
-        <div className="max-w-7xl mx-auto h-full flex items-center justify-between px-6">
-          <Link
-            href="/"
-            className="font-headline font-bold text-xl tracking-tight text-[#191c23] flex items-center gap-2"
-          >
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-headline font-bold text-sm"
-              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
-            >
-              K
-            </div>
-            Klivvo
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm font-medium transition-colors ${
-                  link.href === "/how"
-                    ? "text-[#005bbf] border-b-2 border-[#005bbf] pb-0.5"
-                    : "text-[#414754] hover:text-[#005bbf]"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/auth"
-              className="hidden sm:inline-flex text-sm font-medium text-[#414754] hover:text-[#005bbf] transition-colors"
-            >
-              Войти
-            </Link>
-            <Link
-              href="/auth"
-              className="hidden sm:inline-flex h-10 px-6 rounded-lg text-sm font-semibold text-white items-center"
-              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
-            >
-              Начать
-            </Link>
-            <button
-              className="md:hidden p-2"
-              onClick={() => setMobileOpen(!mobileOpen)}
-            >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-
-        {mobileOpen && (
-          <div className="md:hidden bg-white border-b border-[#c1c6d6]/30 px-6 py-4 space-y-3">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="block text-sm font-medium text-[#414754]"
-                onClick={() => setMobileOpen(false)}
-              >
-                {link.label}
-              </Link>
-            ))}
-            <Link
-              href="/auth"
-              className="block text-sm font-medium text-[#005bbf]"
-              onClick={() => setMobileOpen(false)}
-            >
-              Войти
-            </Link>
-          </div>
-        )}
-      </nav>
+      <Navbar currentPage="/how" />
 
       {/* Hero */}
       <section className="pt-20 pb-12 px-6">
@@ -333,26 +250,7 @@ export default function HowPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="bg-slate-50 border-t border-[#c1c6d6]/30 py-8 px-6">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <span className="font-headline font-bold text-lg text-[#191c23]">
-            Klivvo
-          </span>
-          <div className="flex gap-6 text-sm text-[#414754]">
-            <Link href="/how" className="hover:text-[#005bbf] transition-colors">
-              Как это работает
-            </Link>
-            <Link href="/auth" className="hover:text-[#005bbf] transition-colors">
-              Войти
-            </Link>
-            <Link href="/dashboard" className="hover:text-[#005bbf] transition-colors">
-              Личный кабинет
-            </Link>
-          </div>
-          <p className="text-sm text-[#414754]">&copy; 2026 Klivvo</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

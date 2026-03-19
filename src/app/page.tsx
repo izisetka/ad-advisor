@@ -11,11 +11,11 @@ import {
   TrendingUp,
   Wand2,
   ChevronDown,
-  Menu,
-  X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 /* ─── Data ─── */
 
@@ -24,13 +24,6 @@ const placeholderDomains = [
   "salon-laki.ru",
   "edavezde.ru",
   "remont-ufa.ru",
-];
-
-const navLinks = [
-  { label: "Возможности", href: "#features" },
-  { label: "Как это работает", href: "#how" },
-  { label: "Цены", href: "#pricing" },
-  { label: "Аналитика", href: "#analytics" },
 ];
 
 const featureCards = [
@@ -59,24 +52,6 @@ const steps = [
   { num: "02", title: "ИИ анализирует рынок", desc: "Подберём ключевые слова, конкурентов и рассчитаем бюджет" },
   { num: "03", title: "Получите готовый план", desc: "Скачайте отчёт с объявлениями, минус-словами и прогнозом" },
 ];
-
-const footerLinks = {
-  product: [
-    { label: "Возможности", href: "#features" },
-    { label: "Как это работает", href: "/how" },
-    { label: "Цены", href: "#pricing" },
-  ],
-  resources: [
-    { label: "Блог", href: "#" },
-    { label: "Войти", href: "/auth" },
-    { label: "Личный кабинет", href: "/dashboard" },
-  ],
-  legal: [
-    { label: "Условия использования", href: "#" },
-    { label: "Политика конфиденциальности", href: "#" },
-    { label: "Контакты", href: "#" },
-  ],
-};
 
 const faqItems = [
   {
@@ -279,7 +254,6 @@ function FaqSection() {
 export default function LandingPage() {
   const [url, setUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const router = useRouter();
 
   async function handleSubmit() {
@@ -304,102 +278,7 @@ export default function LandingPage() {
 
   return (
     <div className="relative min-h-screen bg-[#f9f9ff] text-[#191c23]">
-      {/* ── Nav (fixed, glass) ── */}
-      <nav className="fixed top-0 left-0 right-0 z-50 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30">
-        <div className="max-w-7xl mx-auto h-20 flex items-center justify-between px-6">
-          <span className="font-headline font-bold text-xl tracking-tight text-[#191c23] flex items-center gap-2">
-            <span
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-headline font-bold text-sm"
-              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
-            >
-              K
-            </span>
-            Klivvo
-          </span>
-
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link, i) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document
-                    .querySelector(link.href)
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className={`text-sm font-medium transition-colors ${
-                  i === 0
-                    ? "text-[#005bbf] border-b-2 border-[#005bbf] pb-0.5"
-                    : "text-[#414754] hover:text-[#005bbf]"
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-3">
-            <Link
-              href="/auth"
-              className="hidden sm:inline-flex text-sm font-medium text-[#414754] hover:text-[#005bbf] transition-colors"
-            >
-              Войти
-            </Link>
-            <Link
-              href="/auth"
-              className="hidden sm:inline-flex h-10 px-6 rounded-lg text-sm font-semibold text-white items-center"
-              style={{
-                background: "linear-gradient(135deg, #005bbf, #1a73e8)",
-              }}
-            >
-              Начать
-            </Link>
-            <button
-              className="md:hidden p-2"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-            </button>
-          </div>
-        </div>
-
-        {/* Mobile menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-white border-b border-[#c1c6d6]/30 px-6 py-4 space-y-3">
-            {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setMobileMenuOpen(false);
-                  document
-                    .querySelector(link.href)
-                    ?.scrollIntoView({ behavior: "smooth" });
-                }}
-                className="block text-sm font-medium text-[#414754]"
-              >
-                {link.label}
-              </a>
-            ))}
-            <Link
-              href="/auth"
-              className="block text-sm font-medium text-[#005bbf]"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Войти
-            </Link>
-            <Link
-              href="/auth"
-              className="block text-sm font-semibold text-[#005bbf]"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Начать
-            </Link>
-          </div>
-        )}
-      </nav>
+      <Navbar currentPage="/" />
 
       {/* ── Hero (two columns) ── */}
       <section className="relative z-10 pt-32 pb-20 px-6">
@@ -506,6 +385,37 @@ export default function LandingPage() {
                 <div className="h-3 bg-[#e6e8f2] rounded-full w-2/3" />
               </div>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Цифры ── */}
+      <section className="relative z-10 py-16 px-6">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {[
+              { value: "50+", label: "ключевиков", sublabel: "в каждом отчёте" },
+              { value: "5+", label: "объявлений", sublabel: "готовых к запуску" },
+              { value: "2 мин", label: "до готового", sublabel: "рекламного плана" },
+              { value: "×10", label: "дешевле", sublabel: "чем агентство" },
+            ].map((item, i) => (
+              <motion.div
+                key={item.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                className="text-center"
+              >
+                <p className="font-headline font-extrabold text-4xl md:text-5xl text-[#005bbf] mb-1">
+                  {item.value}
+                </p>
+                <p className="font-headline font-bold text-base text-[#191c23]">
+                  {item.label}
+                </p>
+                <p className="text-sm text-[#414754]">{item.sublabel}</p>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
@@ -818,6 +728,96 @@ export default function LandingPage() {
       {/* ── FAQ ── */}
       <FaqSection />
 
+      {/* ── Сравнение с агентством ── */}
+      <section className="relative z-10 py-20 px-6">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-[#191c23] mb-3">
+              Сравните сами
+            </h2>
+            <p className="text-[#414754] max-w-xl mx-auto">
+              Почему предприниматели выбирают Klivvo вместо агентства
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Агентство */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-[1.5rem] shadow-[0px_24px_48px_rgba(25,28,35,0.06)] p-8 border border-[#c1c6d6]/20 opacity-75"
+            >
+              <h3 className="font-headline font-bold text-xl text-[#414754] mb-6 text-center">
+                Агентство
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { label: "Стоимость", value: "20–50 тыс. ₽/мес" },
+                  { label: "Скорость", value: "3–5 дней" },
+                  { label: "Отчёты", value: "PDF раз в месяц" },
+                  { label: "Ключевики", value: "20–30 штук" },
+                  { label: "Объявления", value: "3–5 штук" },
+                  { label: "Минус-слова", value: "15–20 штук" },
+                  { label: "Мониторинг", value: "Раз в неделю" },
+                  { label: "Прозрачность", value: "Непонятно что делают" },
+                ].map((row) => (
+                  <div key={row.label} className="flex items-center justify-between py-2 border-b border-[#e6e8f2] last:border-0">
+                    <span className="text-sm text-[#414754]">{row.label}</span>
+                    <span className="flex items-center gap-2 text-sm text-[#414754]">
+                      <span className="text-red-500">✕</span>
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Klivvo */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+              className="bg-white rounded-[1.5rem] shadow-[0px_24px_48px_rgba(25,28,35,0.06)] p-8 border-2 border-[#005bbf] relative"
+            >
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#6bfe9c] text-[#005228] text-xs font-bold px-4 py-1 rounded-full">
+                Выгоднее
+              </div>
+              <h3 className="font-headline font-bold text-xl text-[#005bbf] mb-6 text-center">
+                Klivvo
+              </h3>
+              <div className="space-y-4">
+                {[
+                  { label: "Стоимость", value: "от 1 900 ₽/мес" },
+                  { label: "Скорость", value: "2 минуты" },
+                  { label: "Отчёты", value: "Дашборд 24/7" },
+                  { label: "Ключевики", value: "50+ штук" },
+                  { label: "Объявления", value: "5+ с вариациями" },
+                  { label: "Минус-слова", value: "50+ штук" },
+                  { label: "Мониторинг", value: "Ежедневно" },
+                  { label: "Прозрачность", value: "Всё видно в кабинете" },
+                ].map((row) => (
+                  <div key={row.label} className="flex items-center justify-between py-2 border-b border-[#e6e8f2] last:border-0">
+                    <span className="text-sm text-[#191c23] font-medium">{row.label}</span>
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[#006d36]">
+                      <span className="text-[#006d36]">✓</span>
+                      {row.value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="relative z-10 py-20 px-6">
         <div className="max-w-5xl mx-auto relative rounded-[3rem] overflow-hidden px-8 py-16 md:py-20 text-center"
@@ -852,109 +852,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="relative z-10 bg-slate-50 border-t border-[#c1c6d6]/30 py-14 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
-            {/* Logo column */}
-            <div>
-              <span className="font-headline font-bold text-xl text-[#191c23] block mb-3">
-                Klivvo
-              </span>
-              <p className="text-sm text-[#414754] leading-relaxed">
-                ИИ-советник по контекстной рекламе для малого бизнеса
-              </p>
-            </div>
-
-            {/* Продукт */}
-            <div>
-              <h4 className="text-sm font-headline font-bold text-[#191c23] mb-4">
-                Продукт
-              </h4>
-              <ul className="space-y-2.5">
-                {footerLinks.product.map((link) => (
-                  <li key={link.label}>
-                    {link.href.startsWith("#") ? (
-                      <a
-                        href={link.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          document
-                            .querySelector(link.href)
-                            ?.scrollIntoView({ behavior: "smooth" });
-                        }}
-                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Ресурсы */}
-            <div>
-              <h4 className="text-sm font-headline font-bold text-[#191c23] mb-4">
-                Ресурсы
-              </h4>
-              <ul className="space-y-2.5">
-                {footerLinks.resources.map((link) => (
-                  <li key={link.label}>
-                    {link.href.startsWith("#") ? (
-                      <a
-                        href={link.href}
-                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                      >
-                        {link.label}
-                      </a>
-                    ) : (
-                      <Link
-                        href={link.href}
-                        className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                      >
-                        {link.label}
-                      </Link>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Юридическая */}
-            <div>
-              <h4 className="text-sm font-headline font-bold text-[#191c23] mb-4">
-                Юридическая
-              </h4>
-              <ul className="space-y-2.5">
-                {footerLinks.legal.map((link) => (
-                  <li key={link.label}>
-                    <a
-                      href={link.href}
-                      className="text-sm text-[#414754] hover:text-blue-500 hover:translate-x-1 inline-block transition-all"
-                    >
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="border-t border-[#c1c6d6]/30 pt-6">
-            <p className="text-center text-sm text-[#414754]">
-              &copy; 2026 Klivvo
-            </p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

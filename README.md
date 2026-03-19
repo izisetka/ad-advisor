@@ -1,38 +1,71 @@
-# Klivvo — ИИ-советник по контекстной рекламе
+# Klivvo
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+**ИИ-советник по контекстной рекламе для Яндекс.Директа**
 
-## Getting Started
+Вставьте ссылку на сайт — получите ключевые слова, тексты объявлений, минус-слова и прогноз бюджета за 2 минуты. В 5-10 раз дешевле агентства.
 
-First, run the development server:
+![Klivvo Screenshot](./screenshot.png)
+
+## Стек
+
+- **Next.js 16** — React-фреймворк с App Router
+- **React 19** — UI-библиотека
+- **Tailwind CSS v4** — утилитарные стили
+- **Supabase** — база данных и аутентификация
+- **Claude API** — генерация отчётов с помощью ИИ
+- **Framer Motion** — анимации
+- **TypeScript 5** — типизация
+
+## Быстрый старт
 
 ```bash
+git clone https://github.com/your-org/klivvo.git
+cd klivvo
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте [http://localhost:3000](http://localhost:3000) в браузере.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ENV переменные
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Создайте файл `.env.local` в корне проекта:
 
-## Learn More
+```env
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+ANTHROPIC_API_KEY=your_claude_api_key
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Структура проекта
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+src/
+├── app/                  # Страницы (App Router)
+│   ├── page.tsx          # Лендинг
+│   ├── auth/             # Регистрация / вход
+│   ├── dashboard/        # Личный кабинет
+│   ├── analyze/          # Форма анализа
+│   ├── report/[id]/      # Детальный отчёт
+│   ├── blog/             # Блог
+│   ├── how/              # Как это работает
+│   ├── agency/           # Для агентств
+│   ├── contacts/         # Контакты
+│   ├── privacy/          # Политика конфиденциальности
+│   ├── terms/            # Условия использования
+│   └── api/              # API-эндпоинты
+├── components/
+│   ├── navbar.tsx        # Навигация
+│   ├── footer.tsx        # Подвал
+│   └── ui/               # UI-компоненты (shadcn)
+└── lib/
+    ├── ai.ts             # Интеграция с Claude API
+    ├── supabase.ts       # Клиент Supabase
+    ├── store.ts          # Стейт-менеджмент
+    ├── types.ts          # TypeScript типы
+    └── utils.ts          # Утилиты
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Лицензия
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT

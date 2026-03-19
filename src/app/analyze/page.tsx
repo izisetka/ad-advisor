@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 import { Input } from "@/components/ui/input";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import {
   Globe,
-  ArrowLeft,
   ArrowRight,
   Scan,
   Building2,
@@ -83,24 +83,7 @@ export default function AnalyzePage() {
         <div className="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] rounded-full bg-[#005bbf]/10 blur-[120px]" />
       </div>
 
-      {/* Nav — glass panel */}
-      <nav className="sticky top-0 z-50 backdrop-blur-xl bg-white/70 border-b border-[#c1c6d6]/30 shadow-[0px_4px_12px_rgba(25,28,35,0.04)]">
-        <div className="flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
-          <Link href="/" className="flex items-center gap-2 text-[#414754] hover:text-[#005bbf] transition-colors">
-            <ArrowLeft className="w-4 h-4" />
-            <span className="text-sm font-medium">На главную</span>
-          </Link>
-          <Link href="/" className="flex items-center gap-2.5">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-[#005bbf]/25"
-              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
-            >
-              K
-            </div>
-            <span className="font-headline font-bold text-lg tracking-tight text-[#191c23]">Klivvo</span>
-          </Link>
-        </div>
-      </nav>
+      <Navbar currentPage="/analyze" />
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 pt-16">
         <motion.div
@@ -285,6 +268,8 @@ export default function AnalyzePage() {
           )}
         </AnimatePresence>
       </div>
+
+      <Footer />
     </div>
   );
 }
