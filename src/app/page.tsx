@@ -3,13 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
-import {
-  Globe,
-  ArrowRight,
-  Link2,
-  Search,
-  FileText,
-} from "lucide-react";
+import { Globe, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { ShimmerButton } from "@/components/ui/shimmer-button";
 import { BlurFadeIn } from "@/components/ui/blur-fade-in";
@@ -78,7 +72,7 @@ function UrlInput({
   isSubmitting: boolean;
 }) {
   return (
-    <div className="w-full max-w-xl">
+    <div className="w-full">
       <div className="relative rounded-2xl p-2.5 bg-white border border-slate-200 shadow-xl shadow-slate-200/50">
         <div className="flex flex-col sm:flex-row gap-2.5">
           <div className="relative flex-1">
@@ -112,32 +106,12 @@ function UrlInput({
               </>
             ) : (
               <>
-                Получить план
+                Анализировать
                 <ArrowRight className="w-4 h-4 ml-2" />
               </>
             )}
           </ShimmerButton>
         </div>
-      </div>
-
-      <div className="flex flex-wrap justify-center gap-x-4 gap-y-1 mt-3 text-xs text-slate-400">
-        {["Ключевые слова", "Тексты объявлений", "Минус-слова", "Прогноз бюджета"].map((item) => (
-          <span key={item}>
-            <span className="text-indigo-500">&#10003;</span> {item}
-          </span>
-        ))}
-      </div>
-
-      <div className="flex flex-wrap justify-center gap-2 mt-4">
-        {placeholderDomains.map((example) => (
-          <button
-            key={example}
-            onClick={() => setUrl(example)}
-            className="px-3 py-1 rounded-full text-sm text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all border border-transparent hover:border-indigo-200"
-          >
-            {example}
-          </button>
-        ))}
       </div>
     </div>
   );
@@ -167,6 +141,55 @@ const useCases = [
   },
 ];
 
+const navLinks = [
+  { label: "Возможности", href: "#features" },
+  { label: "Как это работает", href: "#how" },
+  { label: "Отчёт", href: "#report" },
+  { label: "Для кого", href: "#for-whom" },
+];
+
+const features = [
+  {
+    icon: "🎯",
+    title: "Ключевые слова",
+    description: "Подберём запросы по которым ищут ваши клиенты",
+  },
+  {
+    icon: "✍️",
+    title: "Готовые объявления",
+    description:
+      "Напишем тексты объявлений, останется скопировать в Директ",
+  },
+  {
+    icon: "🚫",
+    title: "Минус-слова",
+    description: "Исключим мусорные запросы чтобы не сливать бюджет",
+  },
+  {
+    icon: "💰",
+    title: "Прогноз бюджета",
+    description: "Покажем сколько тратить и сколько клиентов ждать",
+  },
+];
+
+const steps = [
+  {
+    num: "01",
+    title: "Вставьте ссылку",
+    desc: "Скопируйте адрес вашего сайта и вставьте в поле",
+  },
+  {
+    num: "02",
+    title: "Мы всё изучим",
+    desc: "Посмотрим ваш сайт, определим нишу, город и услуги",
+  },
+  {
+    num: "03",
+    title: "Получите план",
+    desc: "Готовый отчёт с ключевиками, объявлениями и бюджетом",
+  },
+];
+
 export default function LandingPage() {
   const [url, setUrl] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -188,6 +211,10 @@ export default function LandingPage() {
     }
   }
 
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
   return (
     <div className="relative min-h-screen bg-white text-slate-900">
       {/* Background */}
@@ -198,94 +225,298 @@ export default function LandingPage() {
       </div>
 
       {/* Nav */}
-      <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-5xl mx-auto">
+      <nav className="relative z-10 flex items-center justify-between px-6 py-5 max-w-6xl mx-auto">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-500/25">
-            RP
+            РП
           </div>
           <span className="font-bold text-lg tracking-tight text-slate-900">
             РекламаПлан
           </span>
         </div>
-        <a
-          href="/analyze"
-          className="text-sm text-slate-500 hover:text-indigo-600 transition-colors"
+        <div className="hidden md:flex items-center gap-6">
+          {navLinks.map((link) => (
+            <a
+              key={link.href}
+              href={link.href}
+              onClick={(e) => {
+                e.preventDefault();
+                document
+                  .querySelector(link.href)
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="text-sm text-slate-500 hover:text-indigo-600 transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+        <ShimmerButton
+          onClick={scrollToTop}
+          shimmerColor="rgba(255,255,255,0.2)"
+          background="linear-gradient(135deg, #6366f1, #8b5cf6)"
+          borderRadius="8px"
+          className="h-9 px-5 text-xs font-semibold"
         >
-          Создать план &rarr;
-        </a>
+          Попробовать
+        </ShimmerButton>
       </nav>
 
-      {/* Hero */}
-      <section className="relative z-10 flex flex-col items-center text-center px-6 pt-20 pb-16 max-w-4xl mx-auto">
-        <BlurFadeIn delay={0}>
-          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5">
-            <span className="text-sm">&#9889;</span>
-            <span className="text-sm font-medium text-indigo-700">
-              Результат за 2 минуты
-            </span>
-          </div>
-        </BlurFadeIn>
+      {/* Hero — two columns */}
+      <section className="relative z-10 px-6 pt-16 pb-20 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left */}
+          <div>
+            <BlurFadeIn delay={0}>
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-indigo-100 bg-indigo-50 px-4 py-1.5">
+                <span className="text-sm">&#9889;</span>
+                <span className="text-sm font-medium text-indigo-700">
+                  Результат за 2 минуты
+                </span>
+              </div>
+            </BlurFadeIn>
 
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6 leading-[1.1]">
+            <h1 className="text-4xl md:text-5xl lg:text-[3.25rem] font-bold tracking-tight mb-6 leading-[1.1]">
+              <WordFadeIn
+                words="Узнай, какую рекламу запускать"
+                delay={0.08}
+                className="text-slate-900"
+              />
+            </h1>
+
+            <BlurFadeIn delay={0.2}>
+              <p className="text-lg text-slate-500 mb-8 leading-relaxed max-w-lg">
+                Вставьте ссылку на свой сайт — мы подберём ключевые слова,
+                напишем объявления и рассчитаем бюджет для Яндекс.Директа
+              </p>
+            </BlurFadeIn>
+
+            <BlurFadeIn delay={0.3}>
+              <UrlInput
+                url={url}
+                setUrl={setUrl}
+                onSubmit={handleSubmit}
+                isSubmitting={isSubmitting}
+              />
+            </BlurFadeIn>
+
+            <BlurFadeIn delay={0.4}>
+              <div className="flex flex-wrap gap-x-4 gap-y-1 mt-4 text-xs text-slate-400">
+                {[
+                  "Ключевые слова",
+                  "Тексты объявлений",
+                  "Минус-слова",
+                  "Бюджет",
+                ].map((item) => (
+                  <span key={item}>
+                    <span className="text-indigo-500">&#10003;</span> {item}
+                  </span>
+                ))}
+              </div>
+            </BlurFadeIn>
+          </div>
+
+          {/* Right — dashboard preview */}
+          <BlurFadeIn delay={0.4}>
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="relative rounded-2xl border border-slate-200 bg-white shadow-2xl shadow-slate-200/60 overflow-hidden"
+              style={{
+                transform: "perspective(1000px) rotateY(-5deg)",
+              }}
+            >
+              <BorderBeam
+                size={120}
+                duration={8}
+                colorFrom="#6366f1"
+                colorTo="#8b5cf6"
+              />
+              {/* Title bar */}
+              <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
+                <div className="flex gap-1.5">
+                  <div className="w-3 h-3 rounded-full bg-red-400" />
+                  <div className="w-3 h-3 rounded-full bg-yellow-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-400" />
+                </div>
+                <div className="flex-1 mx-2">
+                  <div className="bg-white rounded-md px-3 py-1 text-xs text-slate-400 border border-slate-200 max-w-sm">
+                    рекламаплан.рф/report/пекарня
+                  </div>
+                </div>
+              </div>
+              {/* Content */}
+              <div className="p-5 space-y-4">
+                <div>
+                  <h3 className="text-base font-bold text-slate-900">
+                    Пекарня &laquo;Хлебница&raquo;
+                  </h3>
+                  <p className="text-xs text-slate-400 mt-0.5">
+                    Пекарня &middot; Уфа &middot; от 80&#8381;
+                  </p>
+                </div>
+                <hr className="border-slate-100" />
+                <div>
+                  <p className="text-xs font-semibold text-slate-500 mb-2">
+                    Горячие запросы
+                  </p>
+                  <div className="space-y-1.5">
+                    {[
+                      { kw: "торт на заказ уфа", vol: "5 100/мес" },
+                      { kw: "купить торт уфа", vol: "3 200/мес" },
+                      { kw: "пекарня с доставкой", vol: "900/мес" },
+                    ].map((item) => (
+                      <div
+                        key={item.kw}
+                        className="flex items-center justify-between px-3 py-2 rounded-lg bg-orange-50 border border-orange-200/50"
+                      >
+                        <span className="text-xs font-medium text-slate-700">
+                          {item.kw}
+                        </span>
+                        <span className="text-xs text-slate-400">
+                          {item.vol}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { label: "Бюджет", value: "35K₽" },
+                    { label: "Клики", value: "~1 000" },
+                    { label: "CPC", value: "~35₽" },
+                  ].map((m) => (
+                    <div
+                      key={m.label}
+                      className="rounded-lg bg-indigo-50 p-2.5 text-center"
+                    >
+                      <p className="text-[10px] text-slate-400">{m.label}</p>
+                      <p className="text-sm font-bold text-indigo-600">
+                        {m.value}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+          </BlurFadeIn>
+        </div>
+      </section>
+
+      {/* Gradient divider */}
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
+        <div className="h-px bg-gradient-to-r from-transparent via-indigo-300/50 to-transparent" />
+      </div>
+
+      {/* Features — Что вы получите */}
+      <section id="features" className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
           <WordFadeIn
-            words="Узнай, какую рекламу запускать"
+            words="Что вы получите"
             delay={0.08}
-            className="text-slate-900"
+            className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-slate-900"
           />
-          <WordFadeIn
-            words="— за 2 минуты"
-            delay={0.08}
-            className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent mt-1"
-          />
-        </h1>
+          <BlurFadeIn delay={0.2}>
+            <p className="text-slate-500 max-w-lg mx-auto">
+              Полный набор для запуска рекламы в Яндекс.Директе
+            </p>
+          </BlurFadeIn>
+        </div>
 
         <BlurFadeIn delay={0.2}>
-          <p className="text-lg md:text-xl text-slate-500 max-w-xl mb-10 leading-relaxed">
-            Вставьте ссылку на свой сайт — мы подберём ключевые слова,
-            напишем объявления и рассчитаем бюджет для Яндекс.Директа
-          </p>
-        </BlurFadeIn>
-
-        <BlurFadeIn delay={0.3} className="w-full flex justify-center">
-          <UrlInput
-            url={url}
-            setUrl={setUrl}
-            onSubmit={handleSubmit}
-            isSubmitting={isSubmitting}
-          />
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {features.map((f, i) => (
+              <motion.div
+                key={f.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.1 }}
+                whileHover={{ y: -4 }}
+                className="bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300"
+              >
+                <div className="text-3xl mb-3">{f.icon}</div>
+                <h3 className="text-lg font-bold mb-2 text-slate-900">
+                  {f.title}
+                </h3>
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  {f.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
         </BlurFadeIn>
       </section>
 
       {/* Gradient divider */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div className="h-px bg-gradient-to-r from-transparent via-indigo-300/50 to-transparent" />
       </div>
 
-      {/* Report preview */}
-      <section className="relative z-10 py-12 bg-slate-50/50">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <WordFadeIn
-              words="Пример отчёта"
-              delay={0.08}
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-3 text-slate-900"
-            />
-            <BlurFadeIn delay={0.2}>
-              <p className="text-slate-500">
-                Вот что вы получите — на примере пекарни в Уфе
-              </p>
-            </BlurFadeIn>
+      {/* How it works — two columns */}
+      <section id="how" className="relative z-10 max-w-6xl mx-auto px-6 py-20">
+        <div className="text-center mb-12">
+          <BlurFadeIn delay={0.1}>
+            <AnimatedGradientText
+              speed={1.5}
+              colorFrom="#6366f1"
+              colorTo="#8b5cf6"
+              className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
+            >
+              Как это работает
+            </AnimatedGradientText>
+          </BlurFadeIn>
+          <BlurFadeIn delay={0.2}>
+            <p className="text-slate-500 max-w-lg mx-auto">
+              Три простых шага — и у вас готовый план рекламы
+            </p>
+          </BlurFadeIn>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          {/* Left — steps */}
+          <div className="space-y-10">
+            {steps.map((step, i) => (
+              <motion.div
+                key={step.num}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: i * 0.15 }}
+                className="flex gap-5"
+              >
+                <div className="text-5xl font-bold text-indigo-100 leading-none select-none shrink-0">
+                  {step.num}
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-slate-900 mb-1">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-slate-500 leading-relaxed">
+                    {step.desc}
+                  </p>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
-          <BlurFadeIn delay={0.2}>
+          {/* Right — report preview */}
+          <BlurFadeIn delay={0.3}>
             <motion.div
+              id="report"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
-              className="relative rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="relative rounded-2xl border border-slate-200 bg-white shadow-xl overflow-hidden"
             >
-              <BorderBeam size={120} duration={8} colorFrom="#6366f1" colorTo="#8b5cf6" />
+              <BorderBeam
+                size={120}
+                duration={8}
+                colorFrom="#6366f1"
+                colorTo="#8b5cf6"
+              />
               {/* Title bar */}
               <div className="flex items-center gap-2 px-4 py-3 bg-slate-50 border-b border-slate-100">
                 <div className="flex gap-1.5">
@@ -305,7 +536,7 @@ export default function LandingPage() {
                 <div className="flex items-start justify-between flex-wrap gap-4">
                   <div>
                     <h3 className="text-xl font-bold text-slate-900">
-                      Пекарня «Хлебница»
+                      Пекарня &laquo;Хлебница&raquo;
                     </h3>
                     <p className="text-sm text-slate-500 mt-1">
                       Пекарня &middot; Уфа &middot; от 80&#8381;
@@ -325,9 +556,21 @@ export default function LandingPage() {
                   </h4>
                   <div className="space-y-2">
                     {[
-                      { kw: "торт на заказ уфа", vol: "~5 100/мес", cpc: "~35₽" },
-                      { kw: "купить торт уфа", vol: "~3 200/мес", cpc: "~28₽" },
-                      { kw: "пекарня с доставкой уфа", vol: "~900/мес", cpc: "~25₽" },
+                      {
+                        kw: "торт на заказ уфа",
+                        vol: "~5 100/мес",
+                        cpc: "~35₽",
+                      },
+                      {
+                        kw: "купить торт уфа",
+                        vol: "~3 200/мес",
+                        cpc: "~28₽",
+                      },
+                      {
+                        kw: "пекарня с доставкой уфа",
+                        vol: "~900/мес",
+                        cpc: "~25₽",
+                      },
                     ].map((item, i) => (
                       <motion.div
                         key={item.kw}
@@ -337,10 +580,14 @@ export default function LandingPage() {
                         transition={{ duration: 0.3, delay: i * 0.1 }}
                         className="flex items-center justify-between p-3 rounded-lg bg-orange-50 border border-orange-200/50"
                       >
-                        <span className="text-sm font-medium text-slate-700">{item.kw}</span>
+                        <span className="text-sm font-medium text-slate-700">
+                          {item.kw}
+                        </span>
                         <div className="flex items-center gap-3 text-xs text-slate-500">
                           <span>{item.vol}</span>
-                          <span className="font-semibold text-orange-600">{item.cpc}</span>
+                          <span className="font-semibold text-orange-600">
+                            {item.cpc}
+                          </span>
                         </div>
                       </motion.div>
                     ))}
@@ -353,17 +600,34 @@ export default function LandingPage() {
                     Готовое объявление
                   </h4>
                   <div className="rounded-lg border border-indigo-200/50 bg-indigo-50/50 p-4">
-                    <p className="text-indigo-700 font-semibold text-sm">Торты на заказ в Уфе — от 1 200&#8381;</p>
-                    <p className="text-slate-600 text-sm mt-1">Свежая выпечка каждый день. Торты, пирожные, хлеб. Доставка по Уфе. Закажите!</p>
+                    <p className="text-indigo-700 font-semibold text-sm">
+                      Торты на заказ в Уфе — от 1 200&#8381;
+                    </p>
+                    <p className="text-slate-600 text-sm mt-1">
+                      Свежая выпечка каждый день. Торты, пирожные, хлеб.
+                      Доставка по Уфе. Закажите!
+                    </p>
                   </div>
                 </div>
 
                 {/* Budget preview */}
                 <div className="grid grid-cols-3 gap-3">
                   {[
-                    { label: "Минимум", amount: "15 000₽/мес", clicks: "~420 кликов" },
-                    { label: "Оптимально", amount: "35 000₽/мес", clicks: "~1 000 кликов" },
-                    { label: "Агрессивно", amount: "70 000₽/мес", clicks: "~2 100 кликов" },
+                    {
+                      label: "Минимум",
+                      amount: "15 000₽/мес",
+                      clicks: "~420 кликов",
+                    },
+                    {
+                      label: "Оптимально",
+                      amount: "35 000₽/мес",
+                      clicks: "~1 000 кликов",
+                    },
+                    {
+                      label: "Агрессивно",
+                      amount: "70 000₽/мес",
+                      clicks: "~2 100 кликов",
+                    },
                   ].map((b, i) => (
                     <motion.div
                       key={b.label}
@@ -374,7 +638,11 @@ export default function LandingPage() {
                       className={`rounded-lg p-3 text-center ${i === 1 ? "bg-indigo-50 border-2 border-indigo-300" : "bg-slate-50 border border-slate-200"}`}
                     >
                       <p className="text-xs text-slate-500 mb-1">{b.label}</p>
-                      <p className={`text-lg font-bold ${i === 1 ? "text-indigo-600" : "text-slate-700"}`}>{b.amount}</p>
+                      <p
+                        className={`text-lg font-bold ${i === 1 ? "text-indigo-600" : "text-slate-700"}`}
+                      >
+                        {b.amount}
+                      </p>
                       <p className="text-xs text-slate-400">{b.clicks}</p>
                     </motion.div>
                   ))}
@@ -382,108 +650,10 @@ export default function LandingPage() {
               </div>
             </motion.div>
           </BlurFadeIn>
-
-          <div className="text-center mt-6">
-            <a
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
-              className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
-            >
-              Попробуйте сами — вставьте ссылку на свой сайт &uarr;
-            </a>
-          </div>
         </div>
       </section>
 
-      {/* Gradient divider */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
-        <div className="h-px bg-gradient-to-r from-transparent via-indigo-300/50 to-transparent" />
-      </div>
-
-      {/* How it works */}
-      <section className="relative z-10 max-w-4xl mx-auto px-6 py-12">
-        <div className="text-center mb-12">
-          <BlurFadeIn delay={0.1}>
-            <AnimatedGradientText
-              speed={1.5}
-              colorFrom="#6366f1"
-              colorTo="#8b5cf6"
-              className="text-3xl md:text-4xl font-bold tracking-tight mb-3"
-            >
-              Как это работает
-            </AnimatedGradientText>
-          </BlurFadeIn>
-          <BlurFadeIn delay={0.2}>
-            <p className="text-slate-500 max-w-lg mx-auto">
-              Три простых шага — и у вас готовый план рекламы
-            </p>
-          </BlurFadeIn>
-        </div>
-
-        <BlurFadeIn delay={0.2}>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch relative">
-            <div className="hidden md:block absolute top-12 left-[calc(33.333%-12px)] w-[calc(33.333%+24px)] z-0">
-              <div className="border-t-2 border-dashed border-slate-200 w-full" />
-            </div>
-            <div className="hidden md:block absolute top-12 left-[calc(66.666%-12px)] w-[calc(33.333%+24px)] z-0">
-              <div className="border-t-2 border-dashed border-slate-200 w-full" />
-            </div>
-            {[
-              {
-                step: "1",
-                icon: Link2,
-                title: "Вставьте ссылку на свой сайт",
-                desc: "Скопируйте адрес вашего сайта и вставьте в поле. Это всё, что нужно от вас.",
-                color: "bg-indigo-50 text-indigo-600",
-              },
-              {
-                step: "2",
-                icon: Search,
-                title: "Мы изучим ваш бизнес и подберём рекламу",
-                desc: "Определим нишу, подберём ключевые слова, напишем объявления и рассчитаем бюджет.",
-                color: "bg-violet-50 text-violet-600",
-              },
-              {
-                step: "3",
-                icon: FileText,
-                title: "Получите готовый план",
-                desc: "Понятный рекламный план с ключевиками, текстами и бюджетом — останется только запустить.",
-                color: "bg-emerald-50 text-emerald-600",
-              },
-            ].map((item, i) => (
-              <motion.div
-                key={item.step}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: i * 0.1 }}
-                whileHover={{ y: -4 }}
-                className="relative z-10 bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-300 h-full flex flex-col"
-              >
-                <div
-                  className={`w-12 h-12 rounded-2xl ${item.color} flex items-center justify-center mb-4`}
-                >
-                  <item.icon className="w-6 h-6" />
-                </div>
-                <div className="absolute top-6 right-6 text-4xl font-bold text-slate-100">
-                  {item.step}
-                </div>
-                <h3 className="text-lg font-bold mb-2 text-slate-900">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-slate-500 leading-relaxed flex-1">
-                  {item.desc}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </BlurFadeIn>
-      </section>
-
-      {/* What we analyze — Marquee */}
+      {/* Marquee */}
       <section className="relative z-10 py-12 overflow-hidden">
         <div className="text-center mb-6">
           <BlurFadeIn delay={0.1}>
@@ -512,7 +682,11 @@ export default function LandingPage() {
             </div>
           ))}
         </Marquee>
-        <Marquee reverse pauseOnHover className="[--duration:35s] [--gap:1rem] mt-3">
+        <Marquee
+          reverse
+          pauseOnHover
+          className="[--duration:35s] [--gap:1rem] mt-3"
+        >
           {[
             "Горячие запросы",
             "Тёплые запросы",
@@ -535,12 +709,15 @@ export default function LandingPage() {
       </section>
 
       {/* Gradient divider */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
+      <div className="relative z-10 max-w-6xl mx-auto px-6">
         <div className="h-px bg-gradient-to-r from-transparent via-violet-300/50 to-transparent" />
       </div>
 
       {/* For whom */}
-      <section className="relative z-10 max-w-4xl mx-auto px-6 py-20">
+      <section
+        id="for-whom"
+        className="relative z-10 max-w-6xl mx-auto px-6 py-20"
+      >
         <div className="text-center mb-12">
           <WordFadeIn
             words="Для кого это"
@@ -606,9 +783,7 @@ export default function LandingPage() {
               className="inline-flex rounded-xl"
             >
               <button
-                onClick={() =>
-                  window.scrollTo({ top: 0, behavior: "smooth" })
-                }
+                onClick={scrollToTop}
                 className="inline-flex items-center gap-2 h-12 px-8 rounded-xl bg-white text-indigo-600 font-semibold text-sm shadow-lg hover:shadow-xl transition-shadow"
               >
                 Попробовать
@@ -619,24 +794,82 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="relative z-10 py-8 px-6 border-t border-slate-100">
-        <p className="text-center text-sm text-slate-400">
-          РекламаПлан &middot;{" "}
-          <a
-            href="https://t.me/reklamaplan"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Telegram
-          </a>{" "}
-          &middot;{" "}
-          <a
-            href="mailto:hello@reklamaplan.ru"
-            className="hover:text-indigo-600 transition-colors"
-          >
-            Обратная связь
-          </a>
-        </p>
+      {/* Footer — multi-column */}
+      <footer className="relative z-10 py-12 px-6 border-t border-slate-100">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {/* Column 1 — Logo */}
+            <div>
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center text-white font-bold text-xs shadow-lg shadow-indigo-500/25">
+                  РП
+                </div>
+                <span className="font-bold text-lg tracking-tight text-slate-900">
+                  РекламаПлан
+                </span>
+              </div>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                ИИ-советник по контекстной рекламе для малого бизнеса
+              </p>
+            </div>
+
+            {/* Column 2 — Product */}
+            <div>
+              <h4 className="text-sm font-semibold text-slate-900 mb-3">
+                Продукт
+              </h4>
+              <ul className="space-y-2">
+                {navLinks.slice(0, 3).map((link) => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        document
+                          .querySelector(link.href)
+                          ?.scrollIntoView({ behavior: "smooth" });
+                      }}
+                      className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Column 3 — Contacts */}
+            <div>
+              <h4 className="text-sm font-semibold text-slate-900 mb-3">
+                Контакты
+              </h4>
+              <ul className="space-y-2">
+                <li>
+                  <a
+                    href="https://t.me/reklamaplan"
+                    className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
+                  >
+                    Telegram
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="mailto:hello@reklamaplan.ru"
+                    className="text-sm text-slate-400 hover:text-indigo-600 transition-colors"
+                  >
+                    Email
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-slate-100 pt-6">
+            <p className="text-center text-sm text-slate-400">
+              &copy; 2026 РекламаПлан
+            </p>
+          </div>
+        </div>
       </footer>
     </div>
   );
