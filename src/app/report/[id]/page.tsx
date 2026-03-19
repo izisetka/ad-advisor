@@ -21,6 +21,8 @@ import {
   TrendingUp,
   MapPin,
   Tag,
+  Download,
+  Share2,
 } from "lucide-react";
 import { AdReport } from "@/lib/types";
 
@@ -158,6 +160,28 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
             </div>
             <div className="text-sm text-[#414754]">{report.url}</div>
           </div>
+
+          {/* Action buttons */}
+          <div className="flex flex-wrap gap-3 mt-4 md:mt-0">
+            <button
+              onClick={() => alert("Скоро!")}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90"
+              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
+            >
+              <Download className="w-4 h-4" />
+              Скачать PDF
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(window.location.href);
+                alert("Ссылка скопирована в буфер обмена!");
+              }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-[#005bbf] bg-[#005bbf]/10 border border-[#005bbf]/20 hover:bg-[#005bbf]/15 transition-colors"
+            >
+              <Share2 className="w-4 h-4" />
+              Поделиться
+            </button>
+          </div>
         </motion.div>
 
         {/* Tabs */}
@@ -276,11 +300,14 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                     <CopyButton text={`${ad.title}\n${ad.description}`} />
                   </div>
 
-                  {/* Директ preview */}
-                  <div className="rounded-xl border border-[#c1c6d6]/30 p-4 bg-[#f2f3fd]">
-                    <p className="text-[#005bbf] font-semibold text-base mb-1 hover:underline cursor-pointer">{ad.title}</p>
-                    <p className="text-sm text-[#414754] mb-2">{ad.description}</p>
-                    <p className="text-xs text-[#006d36]">ad · {report.url}</p>
+                  {/* Yandex Директ preview */}
+                  <div className="rounded-xl border border-[#c1c6d6]/30 p-4 bg-white">
+                    <p className="text-xs text-[#006d36] mb-1 flex items-center gap-1">
+                      <span className="inline-block w-3 h-3 rounded-sm bg-[#006d36]/10 text-[8px] text-[#006d36] flex items-center justify-center font-bold">R</span>
+                      {report.url}
+                    </p>
+                    <p className="text-[#1a0dab] font-semibold text-base mb-1 hover:underline cursor-pointer leading-snug">{ad.title}</p>
+                    <p className="text-sm text-[#414754] leading-relaxed">{ad.description}</p>
                   </div>
 
                   <div className="mt-4 flex flex-wrap gap-1.5">
