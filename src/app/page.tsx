@@ -526,6 +526,120 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* ── Pricing ── */}
+      <section id="pricing" className="relative z-10 py-20 px-6 bg-[#f9f9ff]">
+        <div className="max-w-5xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="font-headline font-extrabold text-3xl md:text-4xl text-[#191c23] mb-3">Простые и понятные цены</h2>
+            <p className="text-[#414754] max-w-xl mx-auto">Выберите то, что подходит вашему бизнесу. Без скрытых платежей.</p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Отчёт */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0 }}
+              className="bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border border-[#c1c6d6]/20 hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="text-3xl mb-3">📊</div>
+              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Отчёт</h3>
+              <p className="text-sm text-[#414754] mb-4">Для первого запуска рекламы</p>
+              <div className="mb-6">
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">490 ₽</span>
+                <span className="text-[#414754] text-sm ml-1">разово</span>
+              </div>
+              <ul className="space-y-3 text-sm text-[#414754] mb-8">
+                {["Полный набор ключевиков", "5 готовых объявлений", "Минус-слова", "Прогноз бюджета (3 уровня)", "Анализ конкурентов"].map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <span className="text-[#006d36] mt-0.5">✓</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={scrollToTop}
+                className="w-full h-12 rounded-xl border-2 border-[#005bbf] text-[#005bbf] font-headline font-bold text-sm hover:bg-[#005bbf]/5 transition-colors"
+              >
+                Получить отчёт
+              </button>
+            </motion.div>
+
+            {/* Подписка */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="relative bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border-2 border-[#005bbf] hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#6bfe9c] text-[#005228] text-xs font-bold px-4 py-1 rounded-full">
+                Популярный
+              </div>
+              <div className="text-3xl mb-3">🚀</div>
+              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Подписка</h3>
+              <p className="text-sm text-[#414754] mb-4">Для активного ведения рекламы</p>
+              <div className="mb-6">
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">1 990 ₽</span>
+                <span className="text-[#414754] text-sm ml-1">/ мес</span>
+              </div>
+              <ul className="space-y-3 text-sm text-[#414754] mb-8">
+                {["Безлимит отчётов", "Обновление рекомендаций каждый месяц", "Алерты: ставки выросли, конкуренты изменились", "История и сравнение месяц к месяцу", "Приоритетная поддержка"].map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <span className="text-[#006d36] mt-0.5">✓</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={scrollToTop}
+                className="w-full h-12 rounded-xl text-white font-headline font-bold text-sm transition-opacity hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
+              >
+                Начать
+              </button>
+            </motion.div>
+
+            {/* Агентство */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="bg-white rounded-[1.5rem] p-8 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] border border-[#c1c6d6]/20 hover:-translate-y-2 transition-transform duration-300"
+            >
+              <div className="text-3xl mb-3">🏢</div>
+              <h3 className="font-headline font-bold text-xl text-[#191c23] mb-1">Агентство</h3>
+              <p className="text-sm text-[#414754] mb-4">Для маркетологов и агентств</p>
+              <div className="mb-6">
+                <span className="font-headline font-extrabold text-4xl text-[#005bbf]">9 990 ₽</span>
+                <span className="text-[#414754] text-sm ml-1">/ мес</span>
+              </div>
+              <ul className="space-y-3 text-sm text-[#414754] mb-8">
+                {["До 50 отчётов / мес", "White-label PDF (ваш лого)", "API доступ", "Мульти-аккаунт (команда)", "Экспорт в Excel", "Приоритетный анализ"].map((f) => (
+                  <li key={f} className="flex items-start gap-2">
+                    <span className="text-[#006d36] mt-0.5">✓</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+              <button
+                onClick={scrollToTop}
+                className="w-full h-12 rounded-xl border-2 border-[#005bbf] text-[#005bbf] font-headline font-bold text-sm hover:bg-[#005bbf]/5 transition-colors"
+              >
+                Связаться
+              </button>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
       {/* ── CTA ── */}
       <section className="relative z-10 py-20 px-6">
         <div className="max-w-5xl mx-auto relative rounded-[3rem] overflow-hidden px-8 py-16 md:py-20 text-center"
