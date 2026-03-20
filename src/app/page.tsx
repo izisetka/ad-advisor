@@ -291,7 +291,7 @@ export default function LandingPage() {
               transition={{ duration: 0.5 }}
             >
               <span className="inline-flex items-center gap-2 rounded-full bg-[#6bfe9c] text-[#005228] px-4 py-1.5 text-sm font-semibold mb-6">
-                &#9889; Результат за 2 минуты
+                &#9889; ИИ-маркетолог
               </span>
             </motion.div>
 
@@ -301,8 +301,8 @@ export default function LandingPage() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="font-headline font-extrabold text-5xl md:text-7xl tracking-tight mb-6 leading-[1.05]"
             >
-              Узнай, какую рекламу запускать для Яндекс.Директа за{" "}
-              <span className="text-[#005bbf]">2 минуты</span> с помощью ИИ
+              Ваш персональный{" "}
+              <span className="text-[#005bbf]">ИИ-маркетолог</span> для бизнеса
             </motion.h1>
 
             <motion.p
@@ -311,8 +311,8 @@ export default function LandingPage() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-xl text-[#414754] mb-8 max-w-xl leading-relaxed"
             >
-              Вставьте ссылку на свой сайт — мы подберём ключевые слова,
-              напишем объявления и рассчитаем бюджет
+              Вставьте ссылку на свой сайт — через 2 минуты получите
+              маркетинговую стратегию и план действий на месяц
             </motion.p>
 
             <motion.div
@@ -334,7 +334,7 @@ export default function LandingPage() {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-wrap gap-x-5 gap-y-1 mt-4 text-sm text-[#414754]"
             >
-              {["Ключевые слова", "Объявления", "Минус-слова", "Бюджет"].map(
+              {["Стратегия", "Каналы", "План на месяц", "Готовые тексты"].map(
                 (item) => (
                   <span key={item} className="flex items-center gap-1.5">
                     <span className="text-[#006d36]">&#10003;</span> {item}

@@ -9,23 +9,24 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Building2,
-  Search,
-  PenTool,
-  Ban,
-  DollarSign,
-  Swords,
+  TrendingUp,
+  Lightbulb,
+  Megaphone,
+  CalendarDays,
+  FileText,
   Copy,
   Check,
-  Flame,
-  Sun,
-  Globe,
-  TrendingUp,
   MapPin,
-  Tag,
+  Users,
+  Target,
+  ThumbsUp,
+  AlertTriangle,
+  ArrowUpRight,
   Download,
   Share2,
+  ChevronRight,
 } from "lucide-react";
-import { AdReport } from "@/lib/types";
+import { MarketingReport } from "@/lib/types";
 
 const fadeUp = {
   initial: { opacity: 0, y: 20 },
@@ -38,12 +39,12 @@ const stagger = {
 };
 
 const tabs = [
-  { id: "overview", label: "Обзор", icon: Building2 },
-  { id: "keywords", label: "Ключевые слова", icon: Search },
-  { id: "ads", label: "Объявления", icon: PenTool },
-  { id: "negative", label: "Минус-слова", icon: Ban },
-  { id: "budget", label: "Бюджет", icon: DollarSign },
-  { id: "competitors", label: "Конкуренты", icon: Swords },
+  { id: "business", label: "Ваш бизнес", icon: Building2 },
+  { id: "market", label: "Рынок", icon: TrendingUp },
+  { id: "strategy", label: "Стратегия", icon: Lightbulb },
+  { id: "channels", label: "Каналы", icon: Megaphone },
+  { id: "plan", label: "План на месяц", icon: CalendarDays },
+  { id: "materials", label: "Материалы", icon: FileText },
 ];
 
 function CopyButton({ text }: { text: string }) {
@@ -63,17 +64,35 @@ function CopyButton({ text }: { text: string }) {
   );
 }
 
-const competitionColors: Record<string, string> = {
-  "низкая": "bg-[#006d36]/10 text-[#006d36] border-[#006d36]/20",
-  "средняя": "bg-yellow-50 text-yellow-700 border-yellow-200",
-  "высокая": "bg-red-50 text-red-700 border-red-200",
+const priorityColors: Record<number, string> = {
+  1: "border-[#005bbf] bg-[#005bbf]/5",
+  2: "border-[#006d36] bg-[#006d36]/5",
+  3: "border-[#006875] bg-[#006875]/5",
+  4: "border-[#414754] bg-[#414754]/5",
+  5: "border-[#414754] bg-[#414754]/5",
+};
+
+const priorityBadgeColors: Record<number, string> = {
+  1: "bg-[#005bbf] text-white",
+  2: "bg-[#006d36] text-white",
+  3: "bg-[#006875] text-white",
+  4: "bg-[#414754] text-white",
+  5: "bg-[#414754] text-white",
+};
+
+const channelIcons: Record<string, string> = {
+  "Яндекс.Директ": "Ya",
+  "Яндекс.Карты": "YK",
+  "VK": "VK",
+  "Авито": "Av",
+  "2ГИС": "2G",
 };
 
 export default function ReportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const [report, setReport] = useState<AdReport | null>(null);
+  const [report, setReport] = useState<MarketingReport | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useState("business");
 
   useEffect(() => {
     fetch(`/api/report/${id}`)
@@ -113,7 +132,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
     );
   }
 
-  const { business, keywords, ads, negativeKeywords, budget, competitors, strategy } = report;
+  const { business, market, strategy, materials, budget } = report;
 
   return (
     <div className="min-h-screen bg-[#f9f9ff] text-[#191c23]">
@@ -137,34 +156,28 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                 <span className="flex items-center gap-1 text-sm text-[#414754]">
                   <MapPin className="w-3.5 h-3.5" /> {business.city}
                 </span>
-                <span className="flex items-center gap-1 text-sm text-[#414754]">
-                  <Tag className="w-3.5 h-3.5" /> {business.priceRange}
-                </span>
               </div>
             </div>
-            <div className="text-sm text-[#414754]">{report.url}</div>
-          </div>
-
-          {/* Action buttons */}
-          <div className="flex flex-wrap gap-3 mt-4 md:mt-0">
-            <button
-              onClick={() => alert("Скоро!")}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
-            >
-              <Download className="w-4 h-4" />
-              Скачать PDF
-            </button>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(window.location.href);
-                alert("Ссылка скопирована в буфер обмена!");
-              }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-[#005bbf] bg-[#005bbf]/10 border border-[#005bbf]/20 hover:bg-[#005bbf]/15 transition-colors"
-            >
-              <Share2 className="w-4 h-4" />
-              Поделиться
-            </button>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => alert("Скоро!")}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                style={{ background: "linear-gradient(135deg, #005bbf, #1a73e8)" }}
+              >
+                <Download className="w-4 h-4" />
+                Скачать PDF
+              </button>
+              <button
+                onClick={() => {
+                  navigator.clipboard.writeText(window.location.href);
+                  alert("Ссылка скопирована!");
+                }}
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-[#005bbf] bg-[#005bbf]/10 border border-[#005bbf]/20 hover:bg-[#005bbf]/15 transition-colors"
+              >
+                <Share2 className="w-4 h-4" />
+                Поделиться
+              </button>
+            </div>
           </div>
         </motion.div>
 
@@ -196,133 +209,305 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
         {/* Tab content */}
         <motion.div key={activeTab} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
 
-          {/* OVERVIEW */}
-          {activeTab === "overview" && (
+          {/* BUSINESS */}
+          {activeTab === "business" && (
             <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
+              {/* Description */}
               <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
-                <h2 className="font-headline text-xl font-bold mb-4 text-[#191c23]">О вашем бизнесе</h2>
-                <p className="text-[#414754] mb-6 leading-relaxed">{business.description}</p>
-                <div className="flex flex-wrap gap-2 mb-6">
+                <h2 className="font-headline text-xl font-bold mb-4 text-[#191c23]">Что мы поняли о вашем бизнесе</h2>
+                <p className="text-[#414754] leading-relaxed text-base">{business.description}</p>
+              </motion.div>
+
+              {/* Target audience */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-[#005bbf]/5 border border-[#005bbf]/10">
+                <div className="flex items-center gap-2 mb-4">
+                  <Users className="w-5 h-5 text-[#005bbf]" />
+                  <h2 className="font-headline text-xl font-bold text-[#191c23]">Целевая аудитория</h2>
+                </div>
+                <p className="text-[#414754] leading-relaxed">{business.targetAudience}</p>
+              </motion.div>
+
+              {/* Services with margins */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                <h2 className="font-headline text-xl font-bold mb-4 text-[#191c23]">Услуги и маржинальность</h2>
+                <div className="space-y-3">
                   {business.services.map((s, i) => (
-                    <Badge key={i} className="bg-[#f2f3fd] text-[#414754] border-[#c1c6d6]/30">{s}</Badge>
+                    <div key={i} className="flex items-center justify-between p-4 rounded-xl bg-[#f2f3fd]">
+                      <span className="font-medium text-[#191c23]">{s.name}</span>
+                      <Badge className={`border ${
+                        s.estimatedMargin.includes("очень высокая") ? "bg-[#006d36]/10 text-[#006d36] border-[#006d36]/20" :
+                        s.estimatedMargin.includes("высокая") ? "bg-[#005bbf]/10 text-[#005bbf] border-[#005bbf]/20" :
+                        s.estimatedMargin.includes("средняя") ? "bg-yellow-50 text-yellow-700 border-yellow-200" :
+                        "bg-red-50 text-red-700 border-red-200"
+                      }`}>
+                        Маржа: {s.estimatedMargin}
+                      </Badge>
+                    </div>
                   ))}
                 </div>
               </motion.div>
 
-              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-[#005bbf]/5 border border-[#005bbf]/10">
-                <div className="flex items-center gap-2 mb-4">
-                  <TrendingUp className="w-5 h-5 text-[#005bbf]" />
-                  <h2 className="font-headline text-xl font-bold text-[#191c23]">Рекомендуемая стратегия</h2>
-                </div>
-                <p className="text-[#414754] leading-relaxed">{strategy}</p>
-              </motion.div>
-
-              {/* Quick stats */}
-              <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="rounded-[1.5rem] p-5 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center">
-                  <p className="text-3xl font-headline font-bold text-[#005bbf]">{keywords.hot.keywords.length + keywords.warm.keywords.length + keywords.broad.keywords.length}</p>
-                  <p className="text-xs text-[#414754] mt-1">ключевых слов</p>
-                </div>
-                <div className="rounded-[1.5rem] p-5 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center">
-                  <p className="text-3xl font-headline font-bold text-[#005bbf]">{ads.length}</p>
-                  <p className="text-xs text-[#414754] mt-1">готовых объявлений</p>
-                </div>
-                <div className="rounded-[1.5rem] p-5 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center">
-                  <p className="text-3xl font-bold text-red-500">{negativeKeywords.length}</p>
-                  <p className="text-xs text-[#414754] mt-1">минус-слов</p>
-                </div>
-                <div className="rounded-[1.5rem] p-5 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center">
-                  <p className="text-3xl font-headline font-bold text-[#006d36]">{budget.optimal.clients}</p>
-                  <p className="text-xs text-[#414754] mt-1">клиентов/мес (прогноз)</p>
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-
-          {/* KEYWORDS */}
-          {activeTab === "keywords" && (
-            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
-              {[
-                { group: keywords.hot, icon: Flame, color: "border-l-4 border-red-500", iconColor: "text-red-500", bg: "bg-red-50" },
-                { group: keywords.warm, icon: Sun, color: "border-l-4 border-amber-500", iconColor: "text-amber-500", bg: "bg-amber-50" },
-                { group: keywords.broad, icon: Globe, color: "border-l-4 border-[#005bbf]", iconColor: "text-[#005bbf]", bg: "bg-[#005bbf]/10" },
-              ].map(({ group, icon: Icon, color, iconColor, bg }) => (
-                <motion.div key={group.label} variants={fadeUp} className={`rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] ${color}`}>
+              {/* Strengths & Weaknesses */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <motion.div variants={fadeUp} className="rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
                   <div className="flex items-center gap-2 mb-4">
-                    <div className={`w-8 h-8 rounded-lg ${bg} flex items-center justify-center`}>
-                      <Icon className={`w-4 h-4 ${iconColor}`} />
+                    <ThumbsUp className="w-5 h-5 text-[#006d36]" />
+                    <h3 className="font-headline text-lg font-bold text-[#191c23]">Сильные стороны</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {business.strengths.map((s, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-[#414754]">
+                        <span className="text-[#006d36] mt-0.5 shrink-0">&#10003;</span>
+                        <span>{s}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+
+                <motion.div variants={fadeUp} className="rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                  <div className="flex items-center gap-2 mb-4">
+                    <AlertTriangle className="w-5 h-5 text-amber-500" />
+                    <h3 className="font-headline text-lg font-bold text-[#191c23]">Зоны роста</h3>
+                  </div>
+                  <ul className="space-y-2">
+                    {business.weaknesses.map((w, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-[#414754]">
+                        <span className="text-amber-500 mt-0.5 shrink-0">!</span>
+                        <span>{w}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              </div>
+            </motion.div>
+          )}
+
+          {/* MARKET */}
+          {activeTab === "market" && (
+            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
+              {/* Market overview */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <motion.div variants={fadeUp} className="rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center">
+                  <p className="text-sm text-[#414754] mb-2">Уровень спроса</p>
+                  <p className={`text-3xl font-headline font-bold ${
+                    market.demandLevel === "высокий" ? "text-[#006d36]" :
+                    market.demandLevel === "средний" ? "text-amber-600" : "text-red-500"
+                  }`}>{market.demandLevel}</p>
+                </motion.div>
+                <motion.div variants={fadeUp} className="rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center">
+                  <p className="text-sm text-[#414754] mb-2">Конкуренция</p>
+                  <p className="text-lg font-headline font-bold text-[#191c23]">{market.competitorCount}</p>
+                </motion.div>
+              </div>
+
+              {/* Competitor insights */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                <div className="flex items-center gap-2 mb-4">
+                  <Target className="w-5 h-5 text-[#005bbf]" />
+                  <h2 className="font-headline text-xl font-bold text-[#191c23]">Что делают конкуренты</h2>
+                </div>
+                <p className="text-[#414754] leading-relaxed">{market.competitorInsights}</p>
+              </motion.div>
+
+              {/* Opportunities */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-[#006d36]/5 border border-[#006d36]/10">
+                <div className="flex items-center gap-2 mb-4">
+                  <ArrowUpRight className="w-5 h-5 text-[#006d36]" />
+                  <h2 className="font-headline text-xl font-bold text-[#191c23]">Возможности для вас</h2>
+                </div>
+                <ul className="space-y-3">
+                  {market.opportunities.map((o, i) => (
+                    <li key={i} className="flex items-start gap-3 text-[#414754]">
+                      <span className="w-6 h-6 rounded-full bg-[#006d36]/10 text-[#006d36] flex items-center justify-center text-xs font-bold shrink-0 mt-0.5">{i + 1}</span>
+                      <span className="leading-relaxed">{o}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {/* STRATEGY */}
+          {activeTab === "strategy" && (
+            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
+              {/* Summary */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                <h2 className="font-headline text-xl font-bold mb-4 text-[#191c23]">Общая стратегия</h2>
+                <p className="text-[#414754] leading-relaxed text-base">{strategy.summary}</p>
+              </motion.div>
+
+              {/* Focus on */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-[#006d36]/5 border border-[#006d36]/10">
+                <div className="flex items-center gap-2 mb-4">
+                  <Target className="w-5 h-5 text-[#006d36]" />
+                  <h2 className="font-headline text-xl font-bold text-[#191c23]">На чём фокусироваться</h2>
+                </div>
+                <p className="text-[#414754] leading-relaxed">{strategy.focusOn}</p>
+              </motion.div>
+
+              {/* Avoid wasting */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-red-50 border border-red-200">
+                <div className="flex items-center gap-2 mb-4">
+                  <AlertTriangle className="w-5 h-5 text-red-500" />
+                  <h2 className="font-headline text-xl font-bold text-[#191c23]">На что НЕ тратить деньги</h2>
+                </div>
+                <p className="text-[#414754] leading-relaxed">{strategy.avoidWasting}</p>
+              </motion.div>
+
+              {/* Budget */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-[#005bbf]/5 border border-[#005bbf]/10">
+                <h2 className="font-headline text-xl font-bold mb-4 text-[#191c23]">Рекомендуемый бюджет</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <div className="rounded-xl bg-white p-4 text-center border border-[#c1c6d6]/20">
+                    <p className="text-xs text-[#414754] mb-1">Бюджет</p>
+                    <p className="text-xl font-headline font-bold text-[#005bbf]">{budget.recommended}</p>
+                  </div>
+                  <div className="rounded-xl bg-white p-4 text-center border border-[#c1c6d6]/20">
+                    <p className="text-xs text-[#414754] mb-1">Ожидаемые клиенты</p>
+                    <p className="text-xl font-headline font-bold text-[#006d36]">{budget.expectedClients}</p>
+                  </div>
+                  <div className="rounded-xl bg-white p-4 text-center border border-[#c1c6d6]/20">
+                    <p className="text-xs text-[#414754] mb-1">Окупаемость</p>
+                    <p className="text-sm font-medium text-[#191c23] leading-snug">{budget.roi}</p>
+                  </div>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+
+          {/* CHANNELS */}
+          {activeTab === "channels" && (
+            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
+              {strategy.channels.map((ch, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  className={`rounded-[1.5rem] p-8 bg-white border-2 ${priorityColors[ch.priority] || "border-[#c1c6d6]/20"} shadow-[0px_24px_48px_rgba(25,28,35,0.06)]`}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center text-sm font-bold ${priorityBadgeColors[ch.priority] || "bg-[#414754] text-white"}`}>
+                      {channelIcons[ch.name] || ch.priority}
                     </div>
-                    <h3 className="font-headline text-lg font-bold text-[#191c23]">{group.label}</h3>
-                  </div>
-                  <div className="space-y-2">
-                    {group.keywords.map((kw, i) => (
-                      <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-[#f2f3fd] hover:bg-[#e6e8f2] transition-colors">
-                        <span className="font-medium text-[#191c23]">{kw.text}</span>
-                        <div className="flex items-center gap-3">
-                          <span className="text-xs text-[#414754]">{kw.volume}</span>
-                          <span className="text-xs font-semibold text-[#191c23]">{kw.cpc}</span>
-                          <Badge className={`text-xs ${competitionColors[kw.competition]} border`}>{kw.competition}</Badge>
-                        </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2">
+                        <h3 className="font-headline text-lg font-bold text-[#191c23]">{ch.name}</h3>
+                        <Badge className="bg-[#f2f3fd] text-[#414754] border-[#c1c6d6]/30 text-xs">Приоритет {ch.priority}</Badge>
                       </div>
-                    ))}
-                  </div>
-                  <div className="mt-4">
-                    <CopyButton text={group.keywords.map(k => k.text).join("\n")} />
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-
-          {/* ADS */}
-          {activeTab === "ads" && (
-            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-4">
-              {ads.map((ad, i) => (
-                <motion.div key={i} variants={fadeUp} className="rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="text-xs font-medium text-[#414754]">Объявление {i + 1}</span>
-                    <CopyButton text={`${ad.title}\n${ad.description}`} />
+                    </div>
                   </div>
 
-                  {/* Yandex Директ preview */}
-                  <div className="rounded-xl border border-[#c1c6d6]/30 p-4 bg-white">
-                    <p className="text-xs text-[#006d36] mb-1 flex items-center gap-1">
-                      <span className="inline-block w-3 h-3 rounded-sm bg-[#006d36]/10 text-[8px] text-[#006d36] flex items-center justify-center font-bold">R</span>
-                      {report.url}
-                    </p>
-                    <p className="text-[#1a0dab] font-semibold text-base mb-1 hover:underline cursor-pointer leading-snug">{ad.title}</p>
-                    <p className="text-sm text-[#414754] leading-relaxed">{ad.description}</p>
+                  <p className="text-[#414754] leading-relaxed mb-4">{ch.why}</p>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                    <div className="rounded-xl bg-[#f2f3fd] p-3">
+                      <p className="text-xs text-[#414754]">Бюджет</p>
+                      <p className="font-headline font-bold text-[#005bbf]">{ch.budget}</p>
+                    </div>
+                    <div className="rounded-xl bg-[#f2f3fd] p-3">
+                      <p className="text-xs text-[#414754]">Ожидаемый результат</p>
+                      <p className="font-headline font-bold text-[#006d36]">{ch.expectedResult}</p>
+                    </div>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap gap-1.5">
-                    <span className="text-xs text-[#414754]">Для запросов:</span>
-                    {ad.targetKeywords.map((kw, j) => (
-                      <Badge key={j} className="bg-[#005bbf]/10 text-[#005bbf] border-[#005bbf]/20 text-xs">{kw}</Badge>
-                    ))}
-                  </div>
-
-                  <div className="mt-3 flex gap-4 text-xs text-[#414754]">
-                    <span>Заголовок: {ad.title.length}/56 символов</span>
-                    <span>Текст: {ad.description.length}/81 символ</span>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-          )}
-
-          {/* NEGATIVE KEYWORDS */}
-          {activeTab === "negative" && (
-            <motion.div variants={fadeUp} initial="initial" animate="animate">
-              <div className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
-                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="font-headline text-xl font-bold text-[#191c23]">Минус-слова</h2>
-                    <p className="text-sm text-[#414754] mt-1">Добавьте эти слова в кампанию, чтобы не тратить деньги на нецелевые клики</p>
+                    <p className="text-sm font-semibold text-[#191c23] mb-2">Что конкретно сделать:</p>
+                    <ul className="space-y-2">
+                      {ch.actionItems.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-[#414754]">
+                          <ChevronRight className="w-4 h-4 text-[#005bbf] mt-0.5 shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
-                  <CopyButton text={negativeKeywords.join("\n")} />
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {/* PLAN */}
+          {activeTab === "plan" && (
+            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
+              {strategy.monthlyPlan.map((week, i) => (
+                <motion.div
+                  key={i}
+                  variants={fadeUp}
+                  className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]"
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-full border-2 border-[#005bbf] text-[#005bbf] flex items-center justify-center font-headline font-bold text-sm shrink-0">
+                      {week.week}
+                    </div>
+                    <h3 className="font-headline text-lg font-bold text-[#191c23]">Неделя {week.week}: {week.title}</h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {week.tasks.map((task, j) => (
+                      <li key={j} className="flex items-start gap-3 text-[#414754]">
+                        <div className="w-5 h-5 rounded border-2 border-[#c1c6d6] mt-0.5 shrink-0" />
+                        <span className="leading-relaxed">{task}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+
+          {/* MATERIALS */}
+          {activeTab === "materials" && (
+            <motion.div variants={stagger} initial="initial" animate="animate" className="space-y-6">
+              {/* Ad texts */}
+              <motion.div variants={fadeUp}>
+                <h2 className="font-headline text-xl font-bold mb-4 text-[#191c23]">Тексты объявлений</h2>
+                <div className="space-y-4">
+                  {materials.adTexts.map((ad, i) => (
+                    <div key={i} className="rounded-[1.5rem] p-6 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                      <div className="flex items-center justify-between mb-3">
+                        <Badge className="bg-[#005bbf]/10 text-[#005bbf] border border-[#005bbf]/20">{ad.channel}</Badge>
+                        <CopyButton text={`${ad.title}\n${ad.description}`} />
+                      </div>
+                      <h3 className="font-bold text-base text-[#191c23] mb-1">{ad.title}</h3>
+                      <p className="text-sm text-[#414754] leading-relaxed mb-3">{ad.description}</p>
+                      <p className="text-xs text-[#414754]">
+                        <span className="font-medium">Для аудитории:</span> {ad.targetAudience}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Keywords */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="font-headline text-xl font-bold text-[#191c23]">Приоритетные ключевики</h2>
+                  <CopyButton text={materials.keywords.join("\n")} />
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {negativeKeywords.map((word, i) => (
+                  {materials.keywords.map((kw, i) => (
+                    <motion.span
+                      key={i}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: i * 0.03 }}
+                      className="px-3 py-1.5 rounded-lg text-sm bg-[#005bbf]/10 text-[#005bbf] border border-[#005bbf]/20 font-medium"
+                    >
+                      {kw}
+                    </motion.span>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Negative keywords */}
+              <motion.div variants={fadeUp} className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
+                <div className="flex items-center justify-between mb-4">
+                  <div>
+                    <h2 className="font-headline text-xl font-bold text-[#191c23]">Минус-слова</h2>
+                    <p className="text-sm text-[#414754] mt-1">Добавьте в кампанию, чтобы не тратить деньги на нецелевые клики</p>
+                  </div>
+                  <CopyButton text={materials.negativeKeywords.join("\n")} />
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {materials.negativeKeywords.map((word, i) => (
                     <motion.span
                       key={i}
                       initial={{ opacity: 0, scale: 0.8 }}
@@ -334,61 +519,7 @@ export default function ReportPage({ params }: { params: Promise<{ id: string }>
                     </motion.span>
                   ))}
                 </div>
-              </div>
-            </motion.div>
-          )}
-
-          {/* BUDGET */}
-          {activeTab === "budget" && (
-            <motion.div variants={stagger} initial="initial" animate="animate">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  { tier: budget.minimum, label: "Минимальный", desc: "Попробовать и посмотреть", color: "border-[#c1c6d6]/20", icon: "💡" },
-                  { tier: budget.optimal, label: "Оптимальный", desc: "Лучшее соотношение цена/результат", color: "border-[#005bbf] ring-2 ring-[#005bbf]/10", icon: "⭐" },
-                  { tier: budget.aggressive, label: "Агрессивный", desc: "Максимум клиентов", color: "border-[#c1c6d6]/20", icon: "🚀" },
-                ].map(({ tier, label, desc, color, icon }) => (
-                  <motion.div
-                    key={label}
-                    variants={fadeUp}
-                    className={`rounded-[1.5rem] p-6 bg-white border ${color} shadow-[0px_24px_48px_rgba(25,28,35,0.06)] text-center`}
-                  >
-                    <div className="text-3xl mb-3">{icon}</div>
-                    <h3 className="font-headline text-lg font-bold text-[#191c23] mb-1">{label}</h3>
-                    <p className="text-xs text-[#414754] mb-4">{desc}</p>
-                    <p className="text-3xl font-headline font-bold text-[#005bbf] mb-4">{tier.amount}</p>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between p-2 rounded-lg bg-[#f2f3fd]">
-                        <span className="text-[#414754]">Кликов</span>
-                        <span className="font-semibold text-[#191c23]">{tier.clicks}</span>
-                      </div>
-                      <div className="flex justify-between p-2 rounded-lg bg-[#f2f3fd]">
-                        <span className="text-[#414754]">Клиентов</span>
-                        <span className="font-semibold text-[#006d36]">{tier.clients}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-              <motion.div variants={fadeUp} className="mt-6 rounded-[1.5rem] p-6 bg-amber-50 border border-amber-200">
-                <p className="text-sm text-amber-800">
-                  ⚠️ <strong>Это приблизительный прогноз.</strong> Реальные цифры зависят от конкуренции, сезона и качества вашего сайта. Рекомендуем начать с минимального бюджета и увеличивать по результатам.
-                </p>
               </motion.div>
-            </motion.div>
-          )}
-
-          {/* COMPETITORS */}
-          {activeTab === "competitors" && (
-            <motion.div variants={fadeUp} initial="initial" animate="animate">
-              <div className="rounded-[1.5rem] p-8 bg-white border border-[#c1c6d6]/20 shadow-[0px_24px_48px_rgba(25,28,35,0.06)]">
-                <div className="flex items-center gap-2 mb-4">
-                  <Swords className="w-5 h-5 text-[#005bbf]" />
-                  <h2 className="font-headline text-xl font-bold text-[#191c23]">Конкурентная среда</h2>
-                </div>
-                <div className="prose max-w-none text-[#414754] leading-relaxed whitespace-pre-line">
-                  {competitors}
-                </div>
-              </div>
             </motion.div>
           )}
 

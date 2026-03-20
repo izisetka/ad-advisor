@@ -12,19 +12,19 @@ import {
   ArrowRight,
   Scan,
   Building2,
-  Search,
-  PenTool,
-  Calculator,
+  TrendingUp,
+  Lightbulb,
+  ClipboardList,
   CheckCircle2,
 } from "lucide-react";
 
 const steps = [
-  { label: "Открываем сайт...", sublabel: "Загружаем и изучаем страницы", icon: Scan, progress: 15 },
-  { label: "Определяем ваш бизнес...", sublabel: "Анализируем нишу и услуги", icon: Building2, progress: 30 },
-  { label: "Подбираем ключевые слова...", sublabel: "Ищем запросы ваших клиентов", icon: Search, progress: 50 },
-  { label: "Пишем объявления...", sublabel: "Создаём тексты для Директа", icon: PenTool, progress: 70 },
-  { label: "Считаем бюджет...", sublabel: "Рассчитываем стоимость и прогноз", icon: Calculator, progress: 90 },
-  { label: "Готово!", sublabel: "Ваш рекламный план готов", icon: CheckCircle2, progress: 100 },
+  { label: "Открываем ваш сайт...", sublabel: "Загружаем и изучаем страницы", icon: Scan, progress: 12 },
+  { label: "Изучаем бизнес и услуги...", sublabel: "Определяем нишу, услуги и маржинальность", icon: Building2, progress: 28 },
+  { label: "Анализируем рынок и конкурентов...", sublabel: "Оцениваем спрос и конкурентную среду", icon: TrendingUp, progress: 48 },
+  { label: "Разрабатываем стратегию...", sublabel: "Выбираем каналы и распределяем бюджет", icon: Lightbulb, progress: 68 },
+  { label: "Составляем план действий...", sublabel: "Готовим тексты, ключевики и план на месяц", icon: ClipboardList, progress: 88 },
+  { label: "Готово!", sublabel: "Ваша маркетинговая стратегия готова", icon: CheckCircle2, progress: 100 },
 ];
 
 export default function AnalyzePage() {
@@ -48,7 +48,7 @@ export default function AnalyzePage() {
         if (prev < steps.length - 2) return prev + 1;
         return prev;
       });
-    }, 1000);
+    }, 1200);
 
     try {
       const res = await fetch("/api/analyze", {
@@ -93,11 +93,11 @@ export default function AnalyzePage() {
           className="text-center mb-12"
         >
           <h1 className="font-headline text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-            <span className="text-[#005bbf]">Рекламный план</span>{" "}
+            <span className="text-[#005bbf]">Маркетинговая стратегия</span>{" "}
             <span className="text-[#191c23]">для вашего бизнеса</span>
           </h1>
           <p className="text-[#414754] text-lg">
-            Вставьте адрес вашего сайта — мы подготовим план рекламы
+            Вставьте адрес вашего сайта — мы подготовим стратегию и план действий
           </p>
         </motion.div>
 
@@ -131,7 +131,7 @@ export default function AnalyzePage() {
                     className="h-14 px-8 text-sm font-semibold"
                   >
                     <span className="font-semibold flex items-center gap-2">
-                      Получить план
+                      Получить стратегию
                       <ArrowRight className="w-4 h-4" />
                     </span>
                   </ShimmerButton>

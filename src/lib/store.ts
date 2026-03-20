@@ -1,13 +1,13 @@
-import { AdReport } from "./types";
+import { MarketingReport } from "./types";
 import { supabase } from "./supabase";
 
 // In-memory fallback (когда Supabase не настроен)
-const memoryStore = new Map<string, AdReport>();
+const memoryStore = new Map<string, MarketingReport>();
 
 /**
  * Сохраняет отчёт в Supabase или в память
  */
-export async function saveReport(report: AdReport): Promise<void> {
+export async function saveReport(report: MarketingReport): Promise<void> {
   if (supabase) {
     const { error } = await supabase.from("reports").insert({
       id: report.id,
@@ -30,7 +30,7 @@ export async function saveReport(report: AdReport): Promise<void> {
  */
 export async function getReport(
   id: string
-): Promise<AdReport | undefined> {
+): Promise<MarketingReport | undefined> {
   if (supabase) {
     const { data, error } = await supabase
       .from("reports")
@@ -42,7 +42,7 @@ export async function getReport(
       // Попробуем из памяти
       return memoryStore.get(id);
     }
-    return data.data as AdReport;
+    return data.data as MarketingReport;
   }
 
   return memoryStore.get(id);
